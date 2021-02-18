@@ -3,3 +3,17 @@
  * Author: Ana Carolina Fidelis Gonçalves <acarolinafg@gmail.com>
  * GitHub:
  */
+
+// Customização do bootstrap
+@import 'Custom';
+
+html,
+body {
+  margin: 0;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

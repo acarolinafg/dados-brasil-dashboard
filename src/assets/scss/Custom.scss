@@ -1,0 +1,29 @@
+/*!
+ * Bootstrap Custom
+ * Author: Ana Carolina Fidelis Gonçalves <acarolinafg@gmail.com>
+ * GitHub:
+ */
+
+//Colors
+$blue: #28166f !default;
+$yellow: #f8c300 !default;
+$green: #00923f !default;
+$blue-light: #edeafb !default;
+
+//Dropdown
+$dropdown-link-hover-color: rgba(255, 255, 255, 0.75) !default;
+$dropdown-link-hover-bg: $blue !default;
+
+// Body
+$body-bg: #f8fafc;
+
+// Typography
+$font-size-base: 0.8rem;
+$line-height-base: 1.6;
+
+// Theme Colors
+$theme-colors: (
+  'blue-light': $blue-light,
+);
+
+@import '~bootstrap/scss/bootstrap';
