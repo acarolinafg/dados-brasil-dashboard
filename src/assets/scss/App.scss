@@ -9,11 +9,48 @@
 
 html,
 body {
-  margin: 0;
+  height: 100%;
 }
 
 .App {
-  min-height: 100vh;
-  display: flex;
+  height: 100vh;
   flex-direction: column;
+  display: flex;
+}
+
+.box {
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+// Página Home
+.wrapper-home {
+  background: url('../../assets/images/bg-home.png') no-repeat center top fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  flex: 1 1 auto;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.wrapper-home div {
+  color:$white;
+  text-align: center;
+}
+
+.wrapper-home div > h1 {
+  font-size: 7rem;
+}
+
+.wrapper-home div > p {
+  font-size: 2rem;
 }

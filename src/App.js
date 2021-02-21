@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from './components/Header';
+import Routes from './includes/Routes';
 
 function App() {
   return (
     <div className="App">
       <Header />
+      <Routes />
     </div>
   );
 }
