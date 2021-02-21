@@ -24,6 +24,11 @@ body {
   text-transform: uppercase;
 }
 
+.navbar-dark .navbar-toggler {
+  color: rgba(255, 255, 255, 0.75);
+  border-color: transparent;
+}
+
 // Estrutura padrão para as páginas
 .box {
   height: 100%;
@@ -60,4 +65,14 @@ body {
 
 .wrapper-home div > p {
   font-size: 2rem;
+}
+
+@media (max-width: 575.98px) {
+  .wrapper-home div > h1 {
+    font-size: 4rem;
+  }
+
+  .wrapper-home div > p {
+    font-size: 1rem;
+  }
 }
