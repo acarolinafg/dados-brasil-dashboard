@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Footer from '../Footer';
 import Env from '../../includes/Env';
 
 export default class Dashboard extends Component {
@@ -72,7 +73,17 @@ export default class Dashboard extends Component {
             </Col>
           </Row>
         </Container>
-        {toggle ? children : ''}
+        <div className="wrapper">
+          <Row className="ml-0 mr-0 h-100">
+            <Col md={3} lg={2} className="pl-0 pr-0 sidebar">
+              Sidebar
+            </Col>
+            <Col as="main" md={9} lg={10} className="pl-0 pr-0">
+              {toggle ? children : ''}
+            </Col>
+          </Row>
+        </div>
+        <Footer />
       </div>
     );
   }
