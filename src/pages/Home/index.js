@@ -4,7 +4,7 @@ import Env from '../../includes/Env';
 
 function Footer() {
   return (
-    <footer className="footer bg-success">
+    <footer className="footer bg-success" role="contentinfo">
       <Container fluid>
         <Row className="text-white">
           <Col>&copy; {Env.copy}</Col>

@@ -1,5 +1,16 @@
 import React from 'react';
+import Dashboard from '../../../components/Dashboard';
 
 export default function EspectroPolitico() {
-  return <h1>Espectro Político</h1>;
+  const navigation = [
+    { key: 1, name: 'Eleições' },
+    { key: 2, name: 'Espectro Político', active: true },
+  ];
+  return (
+    <Dashboard
+      title="Espectro Político"
+      icon={['fas', 'flag-checkered']}
+      navigation={navigation}
+    />
+  );
 }
