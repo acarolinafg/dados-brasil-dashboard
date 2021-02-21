@@ -18,6 +18,13 @@ body {
   display: flex;
 }
 
+//Menu
+.navbar-brand {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+// Estrutura padrão para as páginas
 .box {
   height: 100%;
   flex-direction: column;

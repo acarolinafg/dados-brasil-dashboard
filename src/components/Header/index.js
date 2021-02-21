@@ -14,10 +14,10 @@ export default function () {
       role="navigation"
     >
       <Container fluid>
-        <Navbar.Brand href="/" className="text-uppercase pl-2 pl-md-0">
+        <Navbar.Brand href="/" className="pl-2 pl-md-0">
           <img
             src={logo}
-            className="d-inline-block align-top"
+            className="d-inline-block"
             height={30}
             width={30}
             alt={Env.name}
