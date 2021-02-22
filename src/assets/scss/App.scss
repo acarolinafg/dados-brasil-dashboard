@@ -87,6 +87,14 @@ body {
   padding-bottom: 0.5rem;
 }
 
+@media (min-width: 768px) {
+  .footer-dashboard {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+
 .search-filters span + span::before {
   content: ' | ';
   padding-left: 3px;
@@ -107,7 +115,6 @@ body {
 @media (min-width: 768px) {
   .search-form {
     margin-top: -1rem;
-    margin-bottom: 0;
   }
 }
 

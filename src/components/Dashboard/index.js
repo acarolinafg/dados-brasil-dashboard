@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Breadcrumb, Button, Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Footer from '../Footer';
 import Env from '../../includes/Env';
+import Footer from '../Footer';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -179,13 +179,21 @@ export default class Dashboard extends Component {
               )}
 
               {/* Conteúdo da página */}
-              <Row>
-                <Col>{children}</Col>
+              <Row className="ml-0 mr-0">
+                <Col className="pl-0 pr-0" xs={12}>
+                  {children}
+                </Col>
+                <Col
+                  className="pl-0 pr-0 footer-dashboard d-none d-md-block"
+                  md={12}
+                >
+                  <Footer />
+                </Col>
               </Row>
             </Col>
           </Row>
         </div>
-        <Footer />
+        <Footer classFooter="d-md-none" />
       </div>
     );
   }
