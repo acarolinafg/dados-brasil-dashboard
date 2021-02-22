@@ -218,14 +218,16 @@ export default class SearchForm extends Component {
 
         {state.cargo !== null && state.cargo.disabled ? <Loading /> : ''}
 
-        <ButtonSubmit
-          disabled={state.btnSubmit.disabled}
-          loading={state.btnSubmit.loading}
-        />
-        <ButtonReset
-          disabled={state.btnReset.disabled}
-          loading={state.btnReset.loading}
-        />
+        <div className="mt-3">
+          <ButtonSubmit
+            disabled={state.btnSubmit.disabled}
+            loading={state.btnSubmit.loading}
+          />
+          <ButtonReset
+            disabled={state.btnReset.disabled}
+            loading={state.btnReset.loading}
+          />
+        </div>
       </Form>
     );
   }
