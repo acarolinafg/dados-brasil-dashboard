@@ -34,6 +34,15 @@ body {
   border-radius: 0;
 }
 
+// Breadcrumb
+.breadcrumb {
+  padding: 0;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+
 // Estrutura padrão para as páginas
 .box {
   height: 100%;
@@ -79,13 +88,12 @@ body {
   padding-bottom: 0.5rem;
 }
 
-// Breadcrumb
-.breadcrumb {
-  padding: 0;
-  margin-bottom: 0;
-  background-color: transparent;
-  border-radius: 0;
+.search-filters span+span::before {
+  content: " | ";
+  padding-left: 3px;
+  padding-right: 3px;
 }
+
 
 // Página Home
 .wrapper-home {
