@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
+import { Breadcrumb, Button, Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from '../Footer';
 import Env from '../../includes/Env';
@@ -8,10 +8,35 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      lg: 10,
+      md: 9,
+      classNameOpen: '',
+      openSidebar: true,
       toggle: false,
     };
+    this.onOpenSidebar = this.onOpenSidebar.bind(this);
   }
 
+  /**
+   * Abrir/Fechar Sidebar (Tablets e Desktop)
+   * @param  {Event} e
+   */
+  onOpenSidebar(e) {
+    e.preventDefault();
+    let { openSidebar } = this.state;
+
+    const lg = openSidebar ? 12 : 10;
+    const md = openSidebar ? 12 : 9;
+    const classNameOpen = openSidebar ? 'd-md-none' : '';
+    openSidebar = !openSidebar;
+
+    this.setState({ lg, md, classNameOpen, openSidebar });
+  }
+
+  /**
+   * Renderizar o Breadcrumb da página
+   * @returns {[]}
+   */
   breadcrumbRender() {
     const { navigation } = this.props;
     const breadcrumb = [];
@@ -49,7 +74,7 @@ export default class Dashboard extends Component {
 
   render() {
     const { title, icon, children } = this.props;
-    const { toggle } = this.state;
+    const { lg, md, classNameOpen, openSidebar, toggle } = this.state;
     return (
       <div className="box">
         <Container /* Cabeçalho */
@@ -75,10 +100,39 @@ export default class Dashboard extends Component {
         </Container>
         <div className="wrapper">
           <Row className="ml-0 mr-0 h-100">
-            <Col md={3} lg={2} className="pl-0 pr-0 sidebar">
-              Sidebar
+            {/* Sidebar */}
+            <Col md={3} lg={2} className={`pl-0 pr-0 sidebar ${classNameOpen}`}>
+              {/* Fechar Sidebar */}
+              <div className="clearfix d-none d-md-block">
+                <Button
+                  className="btn-sidebar-close float-right"
+                  variant="link"
+                  aria-label="Fechar Barra Lateral"
+                  title="Fechar Barra Lateral"
+                  onClick={this.onOpenSidebar}
+                >
+                  <FontAwesomeIcon icon={['fas', 'times']} />
+                </Button>
+              </div>
             </Col>
-            <Col as="main" md={9} lg={10} className="pl-0 pr-0">
+            <Col as="main" md={md} lg={lg} className="pl-0 pr-0">
+              {/* Abrir Sidebar */}
+              {!openSidebar ? (
+                <div className="d-none d-md-block">
+                  <Button
+                    className="btn-sidebar-open"
+                    variant="link"
+                    aria-label="Abrir Barra Laterar"
+                    title="Abrir Barra Laterar"
+                    onClick={this.onOpenSidebar}
+                  >
+                    <FontAwesomeIcon icon={['fas', 'bars']} />
+                  </Button>
+                </div>
+              ) : (
+                ''
+              )}
+
               {toggle ? children : ''}
             </Col>
           </Row>
