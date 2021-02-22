@@ -4,6 +4,7 @@ import ButtonSubmit from '../../../Form/ButtonSubmit';
 import ButtonReset from '../../../Form/ButtonReset';
 import Select from '../../../Form/Select';
 import Loading from '../../../Form/Loading';
+import API from '../../../../includes/Api';
 
 export default class SearchForm extends Component {
   constructor(props) {
@@ -97,7 +98,57 @@ export default class SearchForm extends Component {
     const { state } = this;
 
     if (state.startForm) {
+      // this.onLoadFilters();
       this.setState({ startForm: !state.startForm });
+    }
+  }
+
+  /**
+   * Realiza a requisição para carregar os filtros do formulário
+   * @returns {Promise<void>}
+   */
+  async onLoadFilters() {
+    const { props, state } = this;
+    if (props.urlFilters !== undefined && props.urlFilters !== '') {
+      // Efeito loading nos campos do formulário
+      state.ano.disabled = true;
+      state.regiao.disabled = true;
+      state.estado.disabled = true;
+      state.turno.disabled = true;
+      state.tipoEleicao.disabled = true;
+
+      if (state.partido !== null) {
+        state.partido.disabled = true;
+      }
+
+      if (state.espectroPolitico !== null) {
+        state.espectroPolitico.disabled = true;
+      }
+
+      if (state.cargo !== null) {
+        state.cargo.disabled = true;
+      }
+
+      this.setState(state);
+
+      try {
+        // Requisição para carregar os valores dos filtros
+        const response = await API.get(props.urlFilters);
+        const { data, dataFilter } = response;
+
+        // Atualização dos campos de busca
+        state.ano.data = [...data.ano];
+        state.ano.disabled = false;
+        state.ano.value = dataFilter.ano.id;
+        state.ano.valueAbrangencia = dataFilter.ano.abrangencia;
+        state.ano.valueDefault = dataFilter.ano;
+
+        this.setState(state);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      console.error('Definir urlFilter');
     }
   }
 

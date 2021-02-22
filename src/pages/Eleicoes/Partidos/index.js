@@ -7,7 +7,13 @@ export default function Partidos() {
     { key: 1, name: 'Eleições' },
     { key: 2, name: 'Partidos', active: true },
   ];
-  const sidebar = <SearchForm selectPartido selectCargo />;
+  const sidebar = (
+    <SearchForm
+      selectPartido
+      selectCargo
+      urlFilters="eleicoes/partidos/filtros"
+    />
+  );
   return (
     <Dashboard
       title="Partidos"
