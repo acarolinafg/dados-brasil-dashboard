@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { title, icon, children } = this.props;
+    const { title, icon, children, sidebar, filters } = this.props;
     const { openSidebar, toggle } = this.state;
 
     const lg = openSidebar ? 10 : 12;
@@ -146,7 +146,7 @@ export default class Dashboard extends Component {
 
               {/* Formulário de busca */}
               <div className={`${classNameToggle} d-md-block search-form`}>
-                <p>Formulário</p>
+                {sidebar !== undefined ? sidebar : ''}
               </div>
             </Col>
             <Col as="main" md={md} lg={lg} className="pl-0 pr-0">
@@ -167,7 +167,21 @@ export default class Dashboard extends Component {
                 ''
               )}
 
-              {children}
+              {/* Filtros de busca */}
+              {filters !== undefined ? (
+                <Row>
+                  <Col className={openSidebar ? 'mt-2 mb-2' : 'mb-2'}>
+                    {filters}
+                  </Col>
+                </Row>
+              ) : (
+                ''
+              )}
+
+              {/* Conteúdo da página */}
+              <Row>
+                <Col>{children}</Col>
+              </Row>
             </Col>
           </Row>
         </div>
