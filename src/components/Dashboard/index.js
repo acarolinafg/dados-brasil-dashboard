@@ -8,13 +8,11 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lg: 10,
-      md: 9,
-      classNameOpen: '',
       openSidebar: true,
       toggle: false,
     };
     this.onOpenSidebar = this.onOpenSidebar.bind(this);
+    this.onToggle = this.onToggle.bind(this);
   }
 
   /**
@@ -23,14 +21,22 @@ export default class Dashboard extends Component {
    */
   onOpenSidebar(e) {
     e.preventDefault();
-    let { openSidebar } = this.state;
+    this.setState((state) => ({
+      ...state,
+      openSidebar: !state.openSidebar,
+    }));
+  }
 
-    const lg = openSidebar ? 12 : 10;
-    const md = openSidebar ? 12 : 9;
-    const classNameOpen = openSidebar ? 'd-md-none' : '';
-    openSidebar = !openSidebar;
-
-    this.setState({ lg, md, classNameOpen, openSidebar });
+  /**
+   * Abrir/Fechar Sidebar (Smartphones)
+   * @param  {Event} e
+   */
+  onToggle(e) {
+    e.preventDefault();
+    this.setState((state) => ({
+      ...state,
+      toggle: !state.toggle,
+    }));
   }
 
   /**
@@ -74,7 +80,15 @@ export default class Dashboard extends Component {
 
   render() {
     const { title, icon, children } = this.props;
-    const { lg, md, classNameOpen, openSidebar, toggle } = this.state;
+    const { openSidebar, toggle } = this.state;
+
+    const lg = openSidebar ? 10 : 12;
+    const md = openSidebar ? 9 : 12;
+    const classNameOpen = openSidebar ? '' : 'd-md-none';
+
+    const classNameToggle = toggle ? 'd-block' : 'd-none';
+    const labelToggle = toggle ? 'Fechar formulário' : 'Abrir formulário';
+
     return (
       <div className="box">
         <Container /* Cabeçalho */
@@ -114,6 +128,26 @@ export default class Dashboard extends Component {
                   <FontAwesomeIcon icon={['fas', 'times']} />
                 </Button>
               </div>
+
+              {/* Toggle Sidebar  */}
+              <div className="d-block d-md-none">
+                <Button
+                  className="text-uppercase"
+                  variant="primary"
+                  aria-label={labelToggle}
+                  title={labelToggle}
+                  block
+                  onClick={this.onToggle}
+                >
+                  <FontAwesomeIcon icon={['fas', 'bars']} /> &nbsp;&nbsp;
+                  {labelToggle}
+                </Button>
+              </div>
+
+              {/* Formulário de busca */}
+              <div className={`${classNameToggle} d-md-block search-form`}>
+                <p>Formulário</p>
+              </div>
             </Col>
             <Col as="main" md={md} lg={lg} className="pl-0 pr-0">
               {/* Abrir Sidebar */}
@@ -122,8 +156,8 @@ export default class Dashboard extends Component {
                   <Button
                     className="btn-sidebar-open"
                     variant="link"
-                    aria-label="Abrir Barra Laterar"
-                    title="Abrir Barra Laterar"
+                    aria-label="Abrir Barra Lateral"
+                    title="Abrir Barra Lateral"
                     onClick={this.onOpenSidebar}
                   >
                     <FontAwesomeIcon icon={['fas', 'bars']} />
@@ -133,7 +167,7 @@ export default class Dashboard extends Component {
                 ''
               )}
 
-              {toggle ? children : ''}
+              {children}
             </Col>
           </Row>
         </div>
