@@ -7,7 +7,7 @@ export default function EspectroPolitico() {
     { key: 1, name: 'Eleições' },
     { key: 2, name: 'Espectro Político', active: true },
   ];
-  const sidebar = <SearchForm />;
+  const sidebar = <SearchForm selectEspectroPolitico selectCargo />;
   return (
     <Dashboard
       title="Espectro Político"

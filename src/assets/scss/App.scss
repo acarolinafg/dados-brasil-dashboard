@@ -42,7 +42,6 @@ body {
   border-radius: 0;
 }
 
-
 // Estrutura padrão para as páginas
 .box {
   height: 100%;
@@ -88,8 +87,8 @@ body {
   padding-bottom: 0.5rem;
 }
 
-.search-filters span+span::before {
-  content: " | ";
+.search-filters span + span::before {
+  content: ' | ';
   padding-left: 3px;
   padding-right: 3px;
 }
@@ -99,6 +98,17 @@ body {
   padding-right: 15px;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.search-form .form-group {
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .search-form {
+    margin-top: -1rem;
+    margin-bottom: 0;
+  }
 }
 
 // Página Home
