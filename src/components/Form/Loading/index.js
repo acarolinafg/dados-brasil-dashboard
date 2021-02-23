@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-export default function () {
+export default function Loading() {
   return (
     <div className="mt-n2 mb-1">
       <Spinner

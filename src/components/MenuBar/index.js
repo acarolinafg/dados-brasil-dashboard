@@ -4,7 +4,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import Env from '../../includes/Env';
 import logo from '../../assets/images/logo72.png';
 
-export default function () {
+export default function MenuBar() {
   return (
     <Navbar
       className="flex-md-nowrap p-1 shadow"
