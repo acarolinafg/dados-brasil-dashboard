@@ -457,7 +457,6 @@ export default class SearchForm extends Component {
    */
   onLoadEleicao(tipoEleicaoId) {
     if (isEleicaoSuplementar(tipoEleicaoId)) {
-      console.log('Estou aqui');
       // Parâmetros da busca
       const params = this.setParams();
 
