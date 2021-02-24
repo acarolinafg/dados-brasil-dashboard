@@ -34,7 +34,10 @@ export function isEmptyValue(value) {
  */
 export function isEleicaoMunicipal(abrangencia) {
   if (isEmptyObject(abrangencia)) return false;
-  return abrangencia.id === Env.eleicoes.AbrangenciaMunicipal;
+  return (
+    parseInt(abrangencia.id, 10) ===
+    parseInt(Env.eleicoes.AbrangenciaMunicipal, 10)
+  );
 }
 
 /**
@@ -43,7 +46,7 @@ export function isEleicaoMunicipal(abrangencia) {
  * @returns {boolean}
  */
 export function isEleicaoSuplementar(tipoEleicaoId) {
-  return tipoEleicaoId === Env.eleicoes.Suplementar;
+  return parseInt(tipoEleicaoId, 10) === parseInt(Env.eleicoes.Suplementar, 10);
 }
 
 /**
@@ -56,7 +59,10 @@ export function isEleicaoSuplementar(tipoEleicaoId) {
 export function selectDataCargo(array, abrangencia, regiaoId = '') {
   const data = [{ id: '', nome: 'Todos' }];
 
-  if (abrangencia.id === Env.eleicoes.AbrangenciaMunicipal)
+  if (
+    parseInt(abrangencia.id, 10) ===
+    parseInt(Env.eleicoes.AbrangenciaMunicipal, 10)
+  )
     return data.concat(array.municipal);
 
   if (!isEmptyValue(regiaoId)) return data.concat(array.estadual);

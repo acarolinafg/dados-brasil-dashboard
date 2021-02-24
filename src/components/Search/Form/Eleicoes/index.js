@@ -7,6 +7,7 @@ import Loading from '../../../Form/Loading';
 import API from '../../../../includes/Api';
 import {
   isEleicaoMunicipal,
+  isEleicaoSuplementar,
   isEmptyArray,
   isEmptyObject,
   isEmptyValue,
@@ -161,7 +162,10 @@ export default class SearchForm extends Component {
     state.eleicao.data = [{ id: '', nome: 'Todas' }];
     state.eleicao.disabled = true;
 
-    if (isEmptyObject(state.partido)) state.partido.value = '';
+    if (!isEmptyObject(state.partido)) state.partido.value = '';
+
+    if (!isEmptyObject(state.espectroPolitico))
+      state.espectroPolitico.value = '';
 
     if (!isEmptyObject(state.cargo)) {
       const { dataAll } = state.cargo;
@@ -273,6 +277,9 @@ export default class SearchForm extends Component {
       : parseInt(value, 10);
 
     this.setState(state);
+
+    // Carregar Eleição
+    this.onLoadEleicao(value);
   }
 
   /**
@@ -439,6 +446,99 @@ export default class SearchForm extends Component {
         },
       });
     }
+  }
+
+  /**
+   * Carrega os dados do campo Eleição
+   * @param {Number} tipoEleicaoId
+   */
+  onLoadEleicao(tipoEleicaoId) {
+    if (isEleicaoSuplementar(tipoEleicaoId)) {
+      console.log('Estou aqui');
+      // Parâmetros da busca
+      const params = this.setParams();
+
+      // Remover parâmetros não tilizados
+      delete params.cargo;
+      delete params.eleicao;
+      delete params.partido;
+
+      const { eleicao } = this.state;
+
+      this.setState(
+        { eleicao: { ...eleicao, disabled: true, loading: true } },
+        () => {
+          API.get('eleicoes', { params })
+            .then((response) =>
+              this.setState({
+                eleicao: {
+                  ...eleicao,
+                  data: [{ id: '', nome: 'Todas' }, ...response.data.data],
+                  disabled: false,
+                  loading: false,
+                },
+              })
+            )
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      );
+    } else {
+      this.setState({
+        eleicao: {
+          data: [{ id: '', nome: 'Todas' }],
+          disabled: true,
+          loading: false,
+        },
+      });
+    }
+  }
+
+  /**
+   * Obter os parâmetros de busca
+   * @returns {{}}
+   */
+  setParams() {
+    const { state } = this;
+    const params = {};
+
+    params.ano = state.ano.value;
+    params.turno = state.turno.value;
+    params.tipoEleicao = state.tipoEleicao.value;
+
+    if (!isEmptyValue(state.regiao.value)) {
+      params.regiao = state.regiao.value;
+    }
+
+    if (!isEmptyValue(state.estado.value)) {
+      params.estado = state.estado.value;
+    }
+
+    if (!isEmptyValue(state.municipio.value)) {
+      params.municipio = state.municipio.value;
+    }
+
+    if (!isEmptyValue(state.eleicao.value)) {
+      params.eleicao = state.eleicao.value;
+    }
+
+    if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
+      params.partido = state.partido.value;
+    }
+
+    if (
+      !isEmptyObject(state.espectroPolitico) &&
+      !isEmptyValue(state.espectroPolitico.value)
+    ) {
+      params.espectroPolitico = state.espectroPolitico.value;
+    }
+
+    if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
+      params.cargo = state.cargo.value;
+    }
+
+    return params;
   }
 
   render() {
