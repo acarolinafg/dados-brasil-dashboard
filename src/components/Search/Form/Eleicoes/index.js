@@ -116,7 +116,7 @@ export default class SearchForm extends Component {
    */
   async onLoadFilters() {
     const { props, state } = this;
-    if (props.urlFilters !== undefined && props.urlFilters !== '') {
+    if (!isEmptyValue(props.urlFilters)) {
       // Efeito loading nos campos do formulário
       state.ano.disabled = true;
       state.regiao.disabled = true;
@@ -124,17 +124,12 @@ export default class SearchForm extends Component {
       state.turno.disabled = true;
       state.tipoEleicao.disabled = true;
 
-      if (state.partido !== null) {
-        state.partido.disabled = true;
-      }
+      if (!isEmptyValue(state.partido)) state.partido.disabled = true;
 
-      if (state.espectroPolitico !== null) {
+      if (!isEmptyValue(state.espectroPolitico))
         state.espectroPolitico.disabled = true;
-      }
 
-      if (state.cargo !== null) {
-        state.cargo.disabled = true;
-      }
+      if (!isEmptyValue(state.cargo)) state.cargo.disabled = true;
 
       this.setState(state);
 
@@ -227,7 +222,7 @@ export default class SearchForm extends Component {
           data={
             !isEmptyValue(state.regiao.object) &&
             !isEmptyArray(state.regiao.object.estados)
-              ? state.regiao.dataUF
+              ? state.regiao.object.estados
               : state.estado.data
           }
         />
@@ -269,7 +264,7 @@ export default class SearchForm extends Component {
         />
         {state.eleicao.loading ? <Loading /> : ''}
 
-        {state.partido !== null ? (
+        {!isEmptyValue(state.partido) ? (
           <Select
             label="Partido"
             name="input-partido"
@@ -281,9 +276,13 @@ export default class SearchForm extends Component {
           ''
         )}
 
-        {state.partido !== null && state.partido.disabled ? <Loading /> : ''}
+        {!isEmptyValue(state.partido) && state.partido.disabled ? (
+          <Loading />
+        ) : (
+          ''
+        )}
 
-        {state.espectroPolitico !== null ? (
+        {!isEmptyValue(state.espectroPolitico) ? (
           <Select
             label="Espectro Político"
             name="input-espectro"
@@ -295,13 +294,14 @@ export default class SearchForm extends Component {
           ''
         )}
 
-        {state.espectroPolitico !== null && state.espectroPolitico.disabled ? (
+        {!isEmptyValue(state.espectroPolitico) &&
+        state.espectroPolitico.disabled ? (
           <Loading />
         ) : (
           ''
         )}
 
-        {state.cargo !== null ? (
+        {!isEmptyValue(state.cargo) ? (
           <Select
             label="Cargo"
             name="input-cargo"
@@ -313,7 +313,7 @@ export default class SearchForm extends Component {
           ''
         )}
 
-        {state.cargo !== null && state.cargo.disabled ? <Loading /> : ''}
+        {!isEmptyValue(state.cargo) && state.cargo.disabled ? <Loading /> : ''}
 
         <div className="mt-3">
           <ButtonSubmit
