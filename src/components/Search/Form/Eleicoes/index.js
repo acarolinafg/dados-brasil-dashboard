@@ -5,6 +5,12 @@ import ButtonReset from '../../../Form/ButtonReset';
 import Select from '../../../Form/Select';
 import Loading from '../../../Form/Loading';
 import API from '../../../../includes/Api';
+import {
+  isEleicaoMunicipal,
+  isEmptyArray,
+  isEmptyValue,
+  selectDataCargo,
+} from '../../../../includes/Helper';
 
 export default class SearchForm extends Component {
   constructor(props) {
@@ -26,19 +32,20 @@ export default class SearchForm extends Component {
       ano: {
         data: [],
         disabled: false,
+        objectDefault: '',
         value: '',
-        valueAbrangencia: '',
-        valueDefault: '',
       },
+      abrangencia: '',
       regiao: {
         data: [{ id: '', nome: 'Todas' }],
-        dataUF: [],
         disabled: false,
+        object: '',
         value: '',
       },
       estado: {
         data: [{ id: '', nome: 'Todos' }],
         disabled: false,
+        object: '',
         value: '',
       },
       municipio: {
@@ -51,14 +58,14 @@ export default class SearchForm extends Component {
       tipoEleicao: {
         data: [],
         disabled: false,
+        objectDefault: '',
         value: '',
-        valueDefault: '',
       },
       turno: {
         data: [],
         disabled: false,
+        objectDefault: '',
         value: '',
-        valueDefault: '',
       },
       eleicao: {
         data: [{ id: '', nome: 'Todas' }],
@@ -98,7 +105,7 @@ export default class SearchForm extends Component {
     const { state } = this;
 
     if (state.startForm) {
-      // this.onLoadFilters();
+      this.onLoadFilters();
       this.setState({ startForm: !state.startForm });
     }
   }
@@ -134,14 +141,52 @@ export default class SearchForm extends Component {
       try {
         // Requisição para carregar os valores dos filtros
         const response = await API.get(props.urlFilters);
-        const { data, dataFilter } = response;
+        const { data, dataFilter } = response.data;
 
         // Atualização dos campos de busca
         state.ano.data = [...data.ano];
         state.ano.disabled = false;
+        state.ano.objectDefault = dataFilter.ano;
         state.ano.value = dataFilter.ano.id;
-        state.ano.valueAbrangencia = dataFilter.ano.abrangencia;
-        state.ano.valueDefault = dataFilter.ano;
+
+        state.abrangencia = dataFilter.ano.abrangencia;
+
+        state.regiao.data = [{ id: '', nome: 'Todas' }, ...data.regiao];
+        state.regiao.disabled = false;
+
+        state.estado.data = [{ id: '', nome: 'Todos' }, ...data.estado];
+        state.estado.disabled = false;
+
+        state.municipio.onLoad = isEleicaoMunicipal(state.abrangencia);
+
+        state.turno.data = [...data.turno];
+        state.turno.disabled = false;
+        state.turno.objectDefault = dataFilter.turno;
+        state.turno.value = dataFilter.turno.id;
+
+        state.tipoEleicao.data = [...data.tipoEleicao];
+        state.tipoEleicao.disabled = false;
+        state.tipoEleicao.objectDefault = dataFilter.tipoEleicao;
+        state.tipoEleicao.value = dataFilter.tipoEleicao.id;
+
+        if (!isEmptyValue(state.partido)) {
+          state.partido.data = [{ id: '', nome: 'Todos' }, ...data.partido];
+          state.partido.disabled = false;
+        }
+
+        if (!isEmptyValue(state.espectroPolitico)) {
+          state.espectroPolitico.data = [
+            { id: '', nome: 'Todos' },
+            ...data.espectroPolitico,
+          ];
+          state.espectroPolitico.disabled = false;
+        }
+
+        if (!isEmptyValue(state.cargo)) {
+          state.cargo.data = selectDataCargo(data.cargo, state.abrangencia);
+          state.cargo.dataAll = data.cargo;
+          state.cargo.disabled = false;
+        }
 
         this.setState(state);
       } catch (e) {
@@ -180,9 +225,10 @@ export default class SearchForm extends Component {
           value={state.estado.value}
           disabled={state.estado.disabled}
           data={
-            state.regiao.dataUF.length === 0
-              ? state.estado.data
-              : state.regiao.dataUF
+            !isEmptyValue(state.regiao.object) &&
+            !isEmptyArray(state.regiao.object.estados)
+              ? state.regiao.dataUF
+              : state.estado.data
           }
         />
         {state.estado.disabled ? <Loading /> : ''}
