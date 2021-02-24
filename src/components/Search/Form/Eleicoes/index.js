@@ -33,6 +33,7 @@ export default class SearchForm extends Component {
     this.handleChangePartido = this.handleChangePartido.bind(this);
     this.handleChangeEspectro = this.handleChangeEspectro.bind(this);
     this.handleChangeCargo = this.handleChangeCargo.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   /**
@@ -136,44 +137,10 @@ export default class SearchForm extends Component {
       ? state.ano.objectDefault.id
       : parseInt(valueSelected, 10);
 
-    const { value, data } = state.ano;
-
-    // Atualizar a abrangência
-    data.forEach((item) => {
-      if (item.id === value) state.abrangencia = item.abrangencia;
-    });
-
-    // Limpeza dos valores dos campos
-    state.regiao.value = '';
-    state.regiao.dataEstados = [];
-
-    state.estado.value = '';
-
-    state.municipio.data = [{ id: '', nome: 'Todos' }];
-    state.municipio.value = '';
-    state.municipio.disabled = true;
-    state.municipio.onLoad = isEleicaoMunicipal(state.abrangencia);
-
-    state.turno.value = state.turno.objectDefault.id;
-
-    state.tipoEleicao.value = state.tipoEleicao.objectDefault.id;
-
-    state.eleicao.value = '';
-    state.eleicao.data = [{ id: '', nome: 'Todas' }];
-    state.eleicao.disabled = true;
-
-    if (!isEmptyObject(state.partido)) state.partido.value = '';
-
-    if (!isEmptyObject(state.espectroPolitico))
-      state.espectroPolitico.value = '';
-
-    if (!isEmptyObject(state.cargo)) {
-      const { dataAll } = state.cargo;
-      state.cargo.data = selectDataCargo(dataAll, state.abrangencia);
-      state.cargo.value = '';
-    }
-
     this.setState(state);
+
+    // Limpar demais campos
+    this.setDefault();
   }
 
   /**
@@ -326,6 +293,17 @@ export default class SearchForm extends Component {
     state.cargo.value = isEmptyValue(value) ? '' : parseInt(value, 10);
 
     this.setState(state);
+  }
+
+  /**
+   * Limpar os campos do formulário
+   * @param  {Event} event
+   */
+  handleReset(event) {
+    event.preventDefault();
+
+    // Setar os campos com seus valores padrões
+    this.setDefault(true);
   }
 
   /**
@@ -541,6 +519,63 @@ export default class SearchForm extends Component {
     return params;
   }
 
+  /**
+   * Atualiza o campos do formulário com seus valores padrões
+   * @param defaultAno
+   */
+  setDefault(defaultAno = false) {
+    const { state } = this;
+
+    if (defaultAno) {
+      state.ano.value = state.ano.objectDefault.id;
+    }
+
+    // Atualizar a abrangência
+    const { value, data } = state.ano;
+    data.forEach((item) => {
+      if (item.id === value) state.abrangencia = item.abrangencia;
+    });
+
+    state.regiao.value = '';
+    state.regiao.dataEstados = [];
+
+    state.estado.value = '';
+
+    state.municipio.data = [{ id: '', nome: 'Todos' }];
+    state.municipio.value = '';
+    state.municipio.disabled = true;
+    state.municipio.onLoad = isEleicaoMunicipal(state.abrangencia);
+
+    state.turno.value = state.turno.objectDefault.id;
+
+    state.tipoEleicao.value = state.tipoEleicao.objectDefault.id;
+
+    state.eleicao.value = '';
+    state.eleicao.data = [{ id: '', nome: 'Todas' }];
+    state.eleicao.disabled = true;
+
+    if (!isEmptyObject(state.partido)) state.partido.value = '';
+
+    if (!isEmptyObject(state.espectroPolitico))
+      state.espectroPolitico.value = '';
+
+    if (!isEmptyObject(state.cargo)) {
+      const { dataAll } = state.cargo;
+      state.cargo.data = selectDataCargo(dataAll, state.abrangencia);
+      state.cargo.value = '';
+    }
+
+    // Dabilitar botões
+    if (defaultAno) {
+      state.btnSubmit.disabled = true;
+      state.btnSubmit.loading = false;
+      state.btnReset.disabled = true;
+      state.btnReset.loading = true;
+    }
+
+    this.setState(state);
+  }
+
   render() {
     const {
       ano,
@@ -557,7 +592,7 @@ export default class SearchForm extends Component {
       btnSubmit,
     } = this.state;
     return (
-      <Form role="search">
+      <Form role="search" onReset={this.handleReset}>
         <Select
           label="Ano"
           name="input-ano"
