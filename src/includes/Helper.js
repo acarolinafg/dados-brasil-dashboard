@@ -38,21 +38,44 @@ export function isEleicaoMunicipal(abrangencia) {
 }
 
 /**
+ * Verifica se o valor corresponde a uma eleição suplementar
+ * @param {Number} tipoEleicaoId
+ * @returns {boolean}
+ */
+export function isEleicaoSuplementar(tipoEleicaoId) {
+  return tipoEleicaoId === Env.eleicoes.Suplementar;
+}
+
+/**
  * Seleciona os cargos eleitorais de acordo com os tipos (Estadual, Federal e Municipal)
  * @param {Array} array
  * @param {Object} abrangencia
- * @param {string|Object} regiao
- * @param {string|Object} estado
+ * @param {string|Number} regiao
  * @returns {{nome: string, id: string|Number}[]}
  */
-export function selectDataCargo(array, abrangencia, regiao = '', estado = '') {
+export function selectDataCargo(array, abrangencia, regiaoId = '') {
   const data = [{ id: '', nome: 'Todos' }];
 
   if (abrangencia.id === Env.eleicoes.AbrangenciaMunicipal)
     return data.concat(array.municipal);
 
-  if (!isEmptyValue(regiao) || !isEmptyValue(estado))
-    return data.concat(array.estadual);
+  if (!isEmptyValue(regiaoId)) return data.concat(array.estadual);
 
   return data.concat(array.federal).concat(array.estadual);
+}
+
+/**
+ * Retorna o array de estados de uma região
+ * @param {Array} dataRegiao
+ * @param {Number} idRegiao
+ * @returns {[{nome: string, id: string}]}
+ */
+export function selectDataEstadoRegiao(dataRegiao, idRegiao) {
+  let dataEstados = [{ id: '', nome: 'Todos' }];
+
+  dataRegiao.forEach((item) => {
+    if (item.id === idRegiao) dataEstados = dataEstados.concat(item.estados);
+  });
+
+  return dataEstados;
 }

@@ -11,7 +11,7 @@ const Env = {
   version: '0.1.0',
   eleicoes: {
     AbrangenciaMunicipal: 3,
-    EleicaoSuplementar: 1,
+    Suplementar: 1,
     cargos: {
       Governador: 3,
       Senador: 5,
