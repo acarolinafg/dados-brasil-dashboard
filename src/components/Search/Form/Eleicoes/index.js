@@ -142,6 +142,33 @@ export default class SearchForm extends Component {
       if (item.id === value) state.abrangencia = item.abrangencia;
     });
 
+    // Limpeza dos valores dos campos
+    state.regiao.value = '';
+    state.regiao.dataEstados = [];
+
+    state.estado.value = '';
+
+    state.municipio.data = [{ id: '', nome: 'Todos' }];
+    state.municipio.value = '';
+    state.municipio.disabled = true;
+    state.municipio.onLoad = isEleicaoMunicipal(state.abrangencia);
+
+    state.turno.value = state.turno.objectDefault.id;
+
+    state.tipoEleicao.value = state.tipoEleicao.objectDefault.id;
+
+    state.eleicao.value = '';
+    state.eleicao.data = [{ id: '', nome: 'Todas' }];
+    state.eleicao.disabled = true;
+
+    if (isEmptyObject(state.partido)) state.partido.value = '';
+
+    if (!isEmptyObject(state.cargo)) {
+      const { dataAll } = state.cargo;
+      state.cargo.data = selectDataCargo(dataAll, state.abrangencia);
+      state.cargo.value = '';
+    }
+
     this.setState(state);
   }
 
@@ -206,6 +233,9 @@ export default class SearchForm extends Component {
     }
 
     this.setState(state);
+
+    // Carregar municípios do estado
+    if (state.municipio.onLoad) this.onLoadMunicipio(value);
   }
 
   /**
@@ -370,6 +400,44 @@ export default class SearchForm extends Component {
       }
     } else {
       console.error('Definir urlFilter');
+    }
+  }
+
+  /**
+   * Carregar todos os municípios de um estado
+   * @param UF
+   */
+  onLoadMunicipio(UF) {
+    const { municipio } = this.state;
+    if (UF !== '') {
+      this.setState(
+        { municipio: { ...municipio, disabled: true, loading: true } },
+        () => {
+          API.get(`localidades/estados/${UF}/municipios`)
+            .then((response) =>
+              this.setState({
+                municipio: {
+                  ...municipio,
+                  data: [{ id: '', nome: 'Todos' }, ...response.data.data],
+                  disabled: false,
+                  loading: false,
+                },
+              })
+            )
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      );
+    } else {
+      this.setState({
+        municipio: {
+          ...municipio,
+          data: [{ id: '', nome: 'Todos' }],
+          disabled: true,
+          loading: false,
+        },
+      });
     }
   }
 
