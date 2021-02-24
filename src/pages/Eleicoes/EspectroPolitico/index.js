@@ -47,9 +47,9 @@ export default class EspectroPolitico extends Component {
         icon={['fas', 'flag-checkered']}
         navigation={navigation}
         sidebar={sidebar}
+        filters={filters}
       >
         {data ? '...' : ''}
-        {filters ? '...' : ''}
         {loading ? '...' : ''}
       </Dashboard>
     );

@@ -3,6 +3,7 @@ import { Breadcrumb, Button, Col, Container, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Env from '../../includes/Env';
 import Footer from '../Footer';
+import SearchFilter from '../Search/Filters/Eleicoes';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -169,11 +170,9 @@ export default class Dashboard extends Component {
 
               {/* Filtros de busca */}
               {filters !== undefined ? (
-                <Row>
-                  <Col className={openSidebar ? 'mt-2 mb-2' : 'mb-2'}>
-                    {filters}
-                  </Col>
-                </Row>
+                <div className="content-filter">
+                  <SearchFilter filters={filters} />
+                </div>
               ) : (
                 ''
               )}
@@ -181,7 +180,7 @@ export default class Dashboard extends Component {
               {/* Conteúdo da página */}
               <Row className="ml-0 mr-0">
                 <Col className="pl-0 pr-0" xs={12}>
-                  {children}
+                  <div className="content-page">{children}</div>
                 </Col>
                 <Col
                   className="pl-0 pr-0 footer-dashboard d-none d-md-block"

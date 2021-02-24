@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function (props) {
+export default function SearchFilter(props) {
   const { filters } = props;
   const content = [];
 
@@ -83,5 +83,5 @@ export default function (props) {
     );
   }
 
-  return <div>{content}</div>;
+  return <div className="search-filters">{content}</div>;
 }

@@ -41,15 +41,16 @@ export default class Partidos extends Component {
         urlSearch="eleicoes/partidos"
       />
     );
+
     return (
       <Dashboard
         title="Partidos"
         icon={['fas', 'flag']}
         navigation={navigation}
         sidebar={sidebar}
+        filters={filters}
       >
         {data ? '...' : ''}
-        {filters ? '...' : ''}
         {loading ? '...' : ''}
       </Dashboard>
     );

@@ -121,9 +121,11 @@ export default class SearchForm extends Component {
   componentDidMount() {
     const { state } = this;
 
+    // Carregar formulário com as opções e dados padrões
     if (state.startForm) {
       this.onLoadFilters();
-      this.setState({ startForm: !state.startForm });
+      state.startForm = false;
+      this.setState(state);
     }
   }
 
@@ -404,6 +406,8 @@ export default class SearchForm extends Component {
       } catch (e) {
         console.error(e);
       }
+
+      this.onLoadSearch();
     } else {
       console.error('Definir urlFilter');
     }

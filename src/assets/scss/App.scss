@@ -94,11 +94,17 @@ body {
   }
 }
 
-
 .search-filters span + span::before {
   content: ' | ';
   padding-left: 3px;
   padding-right: 3px;
+}
+
+.content-filter {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .search-form {
@@ -116,6 +122,11 @@ body {
   .search-form {
     margin-top: -1rem;
   }
+}
+
+.content-page {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 // Página Home
