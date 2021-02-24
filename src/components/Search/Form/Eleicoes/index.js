@@ -33,6 +33,7 @@ export default class SearchForm extends Component {
     this.handleChangePartido = this.handleChangePartido.bind(this);
     this.handleChangeEspectro = this.handleChangeEspectro.bind(this);
     this.handleChangeCargo = this.handleChangeCargo.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
 
@@ -296,6 +297,23 @@ export default class SearchForm extends Component {
   }
 
   /**
+   * Requisição do formuluário
+   * @param {Event} event
+   */
+  handleSubmit(event) {
+    event.preventDefault();
+
+    // Desabilitar botões
+    this.setState({
+      btnSubmit: { disabled: true, loading: true },
+      btnReset: { disabled: true, loading: false },
+    });
+
+    // Carregar a busca
+    this.onLoadSearch();
+  }
+
+  /**
    * Limpar os campos do formulário
    * @param  {Event} event
    */
@@ -304,6 +322,9 @@ export default class SearchForm extends Component {
 
     // Setar os campos com seus valores padrões
     this.setDefault(true);
+
+    // Requisição com os campos de busca padrão
+    this.onLoadSearch();
   }
 
   /**
@@ -473,50 +494,31 @@ export default class SearchForm extends Component {
     }
   }
 
-  /**
-   * Obter os parâmetros de busca
-   * @returns {{}}
-   */
-  setParams() {
-    const { state } = this;
-    const params = {};
+  async onLoadSearch() {
+    const { onResult, onLoading, urlSearch } = this.props;
 
-    params.ano = state.ano.value;
-    params.turno = state.turno.value;
-    params.tipoEleicao = state.tipoEleicao.value;
+    // Efeito loading na página de consulta
+    onLoading();
 
-    if (!isEmptyValue(state.regiao.value)) {
-      params.regiao = state.regiao.value;
+    try {
+      // Parâmetros da requisição
+      const params = this.setParams();
+
+      const response = await API.get(urlSearch, { params });
+      onResult({
+        data: response.data,
+        filters: this.setFilters(),
+        loading: false,
+      });
+
+      // Habilitar os botões
+      this.setState({
+        btnReset: { disabled: false, loading: false },
+        btnSubmit: { disabled: false, loading: false },
+      });
+    } catch (e) {
+      console.error(e);
     }
-
-    if (!isEmptyValue(state.estado.value)) {
-      params.estado = state.estado.value;
-    }
-
-    if (!isEmptyValue(state.municipio.value)) {
-      params.municipio = state.municipio.value;
-    }
-
-    if (!isEmptyValue(state.eleicao.value)) {
-      params.eleicao = state.eleicao.value;
-    }
-
-    if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
-      params.partido = state.partido.value;
-    }
-
-    if (
-      !isEmptyObject(state.espectroPolitico) &&
-      !isEmptyValue(state.espectroPolitico.value)
-    ) {
-      params.espectroPolitico = state.espectroPolitico.value;
-    }
-
-    if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
-      params.cargo = state.cargo.value;
-    }
-
-    return params;
   }
 
   /**
@@ -576,6 +578,119 @@ export default class SearchForm extends Component {
     this.setState(state);
   }
 
+  /**
+   * Obter os filtros da busca
+   * @returns {{}}
+   */
+  setFilters() {
+    const { state } = this;
+    const filters = {
+      ano: state.ano.value,
+    };
+
+    state.turno.data.forEach((item) => {
+      if (item.id === state.turno.value) filters.turno = item.nome;
+    });
+
+    state.tipoEleicao.data.forEach((item) => {
+      if (item.id === state.tipoEleicao.value) filters.tipoEleicao = item.nome;
+    });
+
+    if (!isEmptyValue(state.regiao.value)) {
+      state.regiao.data.forEach((item) => {
+        if (item.id === state.regiao.value) filters.regiao = item.nome;
+      });
+    }
+
+    if (!isEmptyValue(state.estado.value)) {
+      state.estado.data.forEach((item) => {
+        if (item.id === state.estado.value) filters.estado = item.nome;
+      });
+    }
+
+    if (!isEmptyValue(state.municipio.value)) {
+      state.municipio.data.forEach((item) => {
+        if (item.id === state.municipio.value) filters.municipio = item.nome;
+      });
+    }
+
+    if (!isEmptyValue(state.eleicao.value)) {
+      state.eleicao.data.forEach((item) => {
+        if (item.id === state.eleicao.value) filters.eleicao = item.nome;
+      });
+    }
+
+    if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
+      state.partido.data.forEach((item) => {
+        if (item.id === state.partido.value) filters.partido = item.nome;
+      });
+    }
+
+    if (
+      !isEmptyObject(state.espectroPolitico) &&
+      !isEmptyValue(state.espectroPolitico.value)
+    ) {
+      state.espectroPolitico.data.forEach((item) => {
+        if (item.id === state.espectroPolitico.value)
+          filters.espectroPolitico = item.nome;
+      });
+    }
+
+    if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
+      state.cargo.data.forEach((item) => {
+        if (item.id === state.cargo.value) filters.cargo = item.nome;
+      });
+    }
+
+    return filters;
+  }
+
+  /**
+   * Obter os parâmetros de busca
+   * @returns {{}}
+   */
+  setParams() {
+    const { state } = this;
+    const params = {};
+
+    params.ano = state.ano.value;
+    params.turno = state.turno.value;
+    params.tipoEleicao = state.tipoEleicao.value;
+
+    if (!isEmptyValue(state.regiao.value)) {
+      params.regiao = state.regiao.value;
+    }
+
+    if (!isEmptyValue(state.estado.value)) {
+      params.estado = state.estado.value;
+    }
+
+    if (!isEmptyValue(state.municipio.value)) {
+      params.municipio = state.municipio.value;
+    }
+
+    if (!isEmptyValue(state.eleicao.value)) {
+      params.eleicao = state.eleicao.value;
+    }
+
+    if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
+      params.partido = state.partido.value;
+    }
+
+    if (
+      !isEmptyObject(state.espectroPolitico) &&
+      !isEmptyValue(state.espectroPolitico.value)
+    ) {
+      params.espectroPolitico = state.espectroPolitico.value;
+    }
+
+    if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
+      params.cargo = state.cargo.value;
+    }
+
+    return params;
+  }
+
   render() {
     const {
       ano,
@@ -592,7 +707,11 @@ export default class SearchForm extends Component {
       btnSubmit,
     } = this.state;
     return (
-      <Form role="search" onReset={this.handleReset}>
+      <Form
+        role="search"
+        onSubmit={this.handleSubmit}
+        onReset={this.handleReset}
+      >
         <Select
           label="Ano"
           name="input-ano"
