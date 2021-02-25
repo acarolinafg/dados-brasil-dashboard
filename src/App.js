@@ -1,11 +1,11 @@
 import React from 'react';
-import MenuBar from './components/MenuBar';
+import Header from './components/Header';
 import Routes from './includes/Routes';
 
 function App() {
   return (
     <div className="App">
-      <MenuBar />
+      <Header />
       <Routes />
     </div>
   );
