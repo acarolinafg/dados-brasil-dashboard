@@ -124,6 +124,22 @@ body {
   }
 }
 
+.search-spinner {
+  height: 10rem;
+  width: 10rem;
+}
+
+.search-spinner-text {
+  color: $blue;
+  text-align: center;
+  margin-left: -7.5rem;
+}
+
+.search-loading {
+  margin-top: 12rem;
+  margin-bottom: 12rem;
+}
+
 .content-page {
   padding-left: 15px;
   padding-right: 15px;

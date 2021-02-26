@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
+import Loading from '../../../components/Search/Loading';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -49,8 +50,14 @@ export default class EspectroPolitico extends Component {
         sidebar={sidebar}
         filters={filters}
       >
-        {data ? '...' : ''}
-        {loading ? '...' : ''}
+        {loading ? (
+          <div className="search-loading">
+            <Loading />
+          </div>
+        ) : (
+          ''
+        )}
+        {data ? '' : ''}
       </Dashboard>
     );
   }
