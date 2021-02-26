@@ -64,7 +64,7 @@ export default class EspectroPolitico extends Component {
         {!loading &&
         !isEmptyValue(data) &&
         !isEmptyValue(data.candidatosEleitos) ? (
-          <CandidatosEleitos data={data.candidatosEleitos} update />
+          <CandidatosEleitos data={data.candidatosEleitos} />
         ) : (
           ''
         )}
