@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
+import { isEmptyValue } from '../../../includes/Helper';
+import CandidatosEleitos from './Charts/CandidatosEleitos';
 
 export default class Partidos extends Component {
   constructor(props) {
@@ -58,7 +60,13 @@ export default class Partidos extends Component {
         ) : (
           ''
         )}
-        {data ? '' : ''}
+        {!loading &&
+        !isEmptyValue(data) &&
+        !isEmptyValue(data.candidatosEleitos) ? (
+          <CandidatosEleitos data={data.candidatosEleitos} update />
+        ) : (
+          ''
+        )}
       </Dashboard>
     );
   }

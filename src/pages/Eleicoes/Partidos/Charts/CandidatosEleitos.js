@@ -19,7 +19,7 @@ export default class CandidatosEleitos extends Component {
     const eleitos = [];
 
     data.forEach((item) => {
-      categories.push(item.nome);
+      categories.push(item.sigla);
       candidatos.push(item.candidatos);
       eleitos.push(item.eleitos);
     });
@@ -27,7 +27,7 @@ export default class CandidatosEleitos extends Component {
     this.state = {
       options: {
         chart: { type: 'column' },
-        title: { text: 'Candidatos e Eleitos por Espectro Político' },
+        title: { text: 'Candidatos e Eleitos por Partidos' },
         xAxis: { categories, crosshair: true },
         yAxis: { title: { text: null }, labels: { format: '{value}' } },
         tooltip: {
