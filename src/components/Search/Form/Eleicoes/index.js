@@ -512,6 +512,7 @@ export default class SearchForm extends Component {
         data: response.data,
         filters: this.setFilters(),
         loading: false,
+        upChart: false,
       });
 
       // Habilitar os botões

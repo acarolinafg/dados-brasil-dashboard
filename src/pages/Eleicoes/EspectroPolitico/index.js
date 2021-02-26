@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
+import { isEmptyValue } from '../../../includes/Helper';
+import CandidatosEleitos from './Charts/CandidatosEleitos';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -49,6 +51,7 @@ export default class EspectroPolitico extends Component {
         navigation={navigation}
         sidebar={sidebar}
         filters={filters}
+        onUpdateChart={this.onUpdateChart}
       >
         {loading ? (
           <div className="search-loading">
@@ -57,7 +60,12 @@ export default class EspectroPolitico extends Component {
         ) : (
           ''
         )}
-        {data ? '' : ''}
+
+        {!isEmptyValue(data) && !isEmptyValue(data.candidatosEleitos) ? (
+          <CandidatosEleitos data={data.candidatosEleitos} update />
+        ) : (
+          ''
+        )}
       </Dashboard>
     );
   }

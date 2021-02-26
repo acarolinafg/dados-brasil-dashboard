@@ -22,6 +22,7 @@ export default class Dashboard extends Component {
    */
   onOpenSidebar(e) {
     e.preventDefault();
+
     this.setState((state) => ({
       ...state,
       openSidebar: !state.openSidebar,
