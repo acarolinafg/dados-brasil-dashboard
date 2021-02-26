@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import Env from '../../../../includes/Env';
 import Chart from '../../../../components/Search/Chart';
 
 export default class CandidatosEleitos extends Component {
@@ -13,22 +12,21 @@ export default class CandidatosEleitos extends Component {
 
   getInitialState() {
     const { data } = this.props;
-
-    const categories = [];
-    const candidatos = [];
-    const eleitos = [];
+    const series = [];
 
     data.forEach((item) => {
-      categories.push(item.nome);
-      candidatos.push(item.candidatos);
-      eleitos.push(item.eleitos);
+      series.push({
+        name: item.nome,
+        color: item.cor,
+        data: [item.candidatos, item.eleitos],
+      });
     });
 
     this.state = {
       options: {
         chart: { type: 'column' },
         title: { text: 'Candidatos e Eleitos por Espectro Político' },
-        xAxis: { categories, crosshair: true },
+        xAxis: { categories: ['Candidatos', 'Eleitos'], crosshair: true },
         yAxis: { title: { text: null }, labels: { format: '{value}' } },
         tooltip: {
           headerFormat:
@@ -44,10 +42,7 @@ export default class CandidatosEleitos extends Component {
           column: { pointPadding: 0.2, borderWidth: 0 },
         },
         credits: { enabled: false },
-        series: [
-          { name: 'Candidatos', color: Env.colors.green, data: candidatos },
-          { name: 'Eleitos', color: Env.colors.yellow, data: eleitos },
-        ],
+        series,
       },
     };
   }
