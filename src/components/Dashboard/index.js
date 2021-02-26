@@ -184,7 +184,7 @@ export default class Dashboard extends Component {
                   <div className="content-page">{children}</div>
                 </Col>
                 <Col
-                  className="pl-0 pr-0 footer-dashboard d-none d-md-block"
+                  className="pl-0 pr-0 footer-dashboard mt-5 d-none d-md-block"
                   md={12}
                 >
                   <Footer />
@@ -193,7 +193,7 @@ export default class Dashboard extends Component {
             </Col>
           </Row>
         </div>
-        <Footer classFooter="d-md-none" />
+        <Footer classFooter="mt-5 d-md-none" />
       </div>
     );
   }
