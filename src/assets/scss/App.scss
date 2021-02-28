@@ -90,6 +90,7 @@ body {
 @media (min-width: 768px) {
   .footer-dashboard {
     position: absolute;
+    width: 100%;
     bottom: 0;
   }
 }
@@ -105,6 +106,13 @@ body {
   padding-right: 15px;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.content-page {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 3rem;
+  width: 100%;
 }
 
 .search-form {
@@ -138,11 +146,6 @@ body {
 .search-loading {
   margin-top: 12rem;
   margin-bottom: 12rem;
-}
-
-.content-page {
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 .search-chart {

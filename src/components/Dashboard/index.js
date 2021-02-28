@@ -180,21 +180,16 @@ export default class Dashboard extends Component {
               )}
 
               {/* Conteúdo da página */}
-              <Row className="ml-0 mr-0">
-                <Col className="pl-0 pr-0" xs={12}>
-                  <div className="content-page">{children}</div>
-                </Col>
-                <Col
-                  className="pl-0 pr-0 footer-dashboard mt-5 d-none d-md-block"
-                  md={12}
-                >
-                  <Footer />
-                </Col>
-              </Row>
+              <div className="content-page">{children}</div>
+
+              {/* Rodapé para aparelhos maiores de 768px */}
+              <div className="d-none d-md-block footer-dashboard">
+                <Footer />
+              </div>
             </Col>
           </Row>
         </div>
-        <Footer classFooter="mt-5 d-md-none" />
+        <Footer classFooter="d-md-none" />
       </div>
     );
   }

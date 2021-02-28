@@ -57,7 +57,7 @@ export default function SearchFilter(props) {
 
   if (filters.eleicao) {
     content.push(
-      <span key={6}>
+      <span key={7}>
         Eleição: <b>{filters.eleicao}</b>
       </span>
     );
@@ -66,7 +66,7 @@ export default function SearchFilter(props) {
   if (filters.cargo) {
     const filter = filters.cargo !== '' ? filters.cargo : 'Todos';
     content.push(
-      <span key={9}>
+      <span key={8}>
         Cargo: <b>{filter}</b>
       </span>
     );
@@ -75,7 +75,7 @@ export default function SearchFilter(props) {
   if (filters.partido) {
     const filter = filters.partido !== '' ? filters.partido : 'Todos';
     content.push(
-      <span key={7}>
+      <span key={9}>
         Partido: <b>{filter}</b>
       </span>
     );
@@ -85,7 +85,7 @@ export default function SearchFilter(props) {
     const filter =
       filters.espectroPolitico !== '' ? filters.espectroPolitico : 'Todos';
     content.push(
-      <span key={8}>
+      <span key={10}>
         Espectro Político: <b>{filter}</b>
       </span>
     );
