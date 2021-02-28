@@ -2,30 +2,22 @@ import React, { Component } from 'react';
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
-import { isEmptyValue } from '../../../includes/Helper';
-import CandidatosEleitos from './Charts/CandidatosEleitos';
 
 export default class Partidos extends Component {
   constructor(props) {
     super(props);
     this.state = { data: {}, filters: {}, loading: false };
-    this.onLoading = this.onLoading.bind(this);
-    this.onResult = this.onResult.bind(this);
+    this.refreshPage = this.refreshPage.bind(this);
   }
 
   /**
-   * Colocar a página no modo de carregar
+   * Método responsável por atualizar a página conforme as requisições do formulário
+   * @param data
+   * @param filters
+   * @param loading
    */
-  onLoading() {
-    this.setState({ loading: true });
-  }
-
-  /**
-   * Armazena o resultado da requisição
-   * @param {Object} result
-   */
-  onResult(result) {
-    this.setState(result);
+  refreshPage(data, filters, loading) {
+    this.setState({ data, filters, loading });
   }
 
   render() {
@@ -38,8 +30,7 @@ export default class Partidos extends Component {
       <SearchForm
         selectPartido
         selectCargo
-        onResult={this.onResult}
-        onLoading={this.onLoading}
+        onRefresh={this.refreshPage}
         urlFilters="eleicoes/partidos/filtros"
         urlSearch="eleicoes/partidos"
       />
@@ -60,13 +51,7 @@ export default class Partidos extends Component {
         ) : (
           ''
         )}
-        {!loading &&
-        !isEmptyValue(data) &&
-        !isEmptyValue(data.candidatosEleitos) ? (
-          <CandidatosEleitos data={data.candidatosEleitos} />
-        ) : (
-          ''
-        )}
+        {data ? '' : ''}
       </Dashboard>
     );
   }

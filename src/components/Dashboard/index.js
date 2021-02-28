@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Env from '../../includes/Env';
 import Footer from '../Footer';
 import SearchFilter from '../Search/Filters/Eleicoes';
+import { isEmptyValue } from '../../includes/Helper';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -170,7 +171,7 @@ export default class Dashboard extends Component {
               )}
 
               {/* Filtros de busca */}
-              {filters !== undefined ? (
+              {!isEmptyValue(filters) ? (
                 <div className="content-filter">
                   <SearchFilter filters={filters} />
                 </div>

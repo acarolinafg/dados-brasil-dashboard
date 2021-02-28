@@ -498,22 +498,22 @@ export default class SearchForm extends Component {
     }
   }
 
+  /**
+   * Requisição na API com base nos filtros do formulário
+   * @returns {Promise<void>}
+   */
   async onLoadSearch() {
-    const { onResult, onLoading, urlSearch } = this.props;
-
-    // Efeito loading na página de consulta
-    onLoading();
-
+    const { onRefresh, urlSearch } = this.props;
+    // Atualizar página antes da requisição
+    onRefresh({}, {}, true);
     try {
       // Parâmetros da requisição
       const params = this.setParams();
 
+      // Requisição de busca
       const response = await API.get(urlSearch, { params });
-      onResult({
-        data: response.data,
-        filters: this.setFilters(),
-        loading: false,
-      });
+
+      onRefresh(response.data, this.setFilters(), false);
 
       // Habilitar os botões
       this.setState({
@@ -795,6 +795,21 @@ export default class SearchForm extends Component {
         />
         {eleicao.loading ? <Loading /> : ''}
 
+        {!isEmptyObject(cargo) ? (
+          <Select
+            label="Cargo"
+            name="input-cargo"
+            value={cargo.value}
+            disabled={cargo.disabled}
+            data={cargo.data}
+            onChange={this.handleChangeCargo}
+          />
+        ) : (
+          ''
+        )}
+
+        {!isEmptyObject(cargo) && cargo.disabled ? <Loading /> : ''}
+
         {!isEmptyObject(partido) ? (
           <Select
             label="Partido"
@@ -828,21 +843,6 @@ export default class SearchForm extends Component {
         ) : (
           ''
         )}
-
-        {!isEmptyObject(cargo) ? (
-          <Select
-            label="Cargo"
-            name="input-cargo"
-            value={cargo.value}
-            disabled={cargo.disabled}
-            data={cargo.data}
-            onChange={this.handleChangeCargo}
-          />
-        ) : (
-          ''
-        )}
-
-        {!isEmptyObject(cargo) && cargo.disabled ? <Loading /> : ''}
 
         <div className="mt-3">
           <ButtonSubmit

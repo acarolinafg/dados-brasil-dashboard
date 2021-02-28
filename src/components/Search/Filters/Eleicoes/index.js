@@ -55,6 +55,23 @@ export default function SearchFilter(props) {
     );
   }
 
+  if (filters.eleicao) {
+    content.push(
+      <span key={6}>
+        Eleição: <b>{filters.eleicao}</b>
+      </span>
+    );
+  }
+
+  if (filters.cargo) {
+    const filter = filters.cargo !== '' ? filters.cargo : 'Todos';
+    content.push(
+      <span key={9}>
+        Cargo: <b>{filter}</b>
+      </span>
+    );
+  }
+
   if (filters.partido) {
     const filter = filters.partido !== '' ? filters.partido : 'Todos';
     content.push(
@@ -70,15 +87,6 @@ export default function SearchFilter(props) {
     content.push(
       <span key={8}>
         Espectro Político: <b>{filter}</b>
-      </span>
-    );
-  }
-
-  if (filters.cargo) {
-    const filter = filters.cargo !== '' ? filters.cargo : 'Todos';
-    content.push(
-      <span key={9}>
-        Cargo: <b>{filter}</b>
       </span>
     );
   }

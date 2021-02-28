@@ -7,23 +7,17 @@ export default class EspectroPolitico extends Component {
   constructor(props) {
     super(props);
     this.state = { data: {}, filters: {}, loading: false };
-    this.onLoading = this.onLoading.bind(this);
-    this.onResult = this.onResult.bind(this);
+    this.refreshPage = this.refreshPage.bind(this);
   }
 
   /**
-   * Colocar a página no modo de carregar
+   * Método responsável por atualizar a página conforme as requisições do formulário
+   * @param data
+   * @param filters
+   * @param loading
    */
-  onLoading() {
-    this.setState({ loading: true });
-  }
-
-  /**
-   * Armazena o resultado da requisição
-   * @param {Object} result
-   */
-  onResult(result) {
-    this.setState(result);
+  refreshPage(data, filters, loading) {
+    this.setState({ data, filters, loading });
   }
 
   render() {
@@ -35,8 +29,7 @@ export default class EspectroPolitico extends Component {
     const sidebar = (
       <SearchForm
         selectEspectroPolitico
-        onResult={this.onResult}
-        onLoading={this.onLoading}
+        onRefresh={this.refreshPage}
         urlFilters="eleicoes/espectro-politico/filtros"
         urlSearch="eleicoes/espectro-politico"
       />
@@ -48,7 +41,6 @@ export default class EspectroPolitico extends Component {
         navigation={navigation}
         sidebar={sidebar}
         filters={filters}
-        onUpdateChart={this.onUpdateChart}
       >
         {loading ? (
           <div className="search-loading">
