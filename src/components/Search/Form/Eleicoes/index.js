@@ -512,7 +512,6 @@ export default class SearchForm extends Component {
         data: response.data,
         filters: this.setFilters(),
         loading: false,
-        upChart: false,
       });
 
       // Habilitar os botões
@@ -588,6 +587,7 @@ export default class SearchForm extends Component {
    */
   setFilters() {
     const { state } = this;
+    const { selectCargo, selectEspectroPolitico, selectPartido } = this.props;
     const filters = {
       ano: state.ano.value,
     };
@@ -604,46 +604,68 @@ export default class SearchForm extends Component {
       state.regiao.data.forEach((item) => {
         if (item.id === state.regiao.value) filters.regiao = item.nome;
       });
+    } else {
+      filters.regiao = 'Todas';
     }
 
     if (!isEmptyValue(state.estado.value)) {
       state.estado.data.forEach((item) => {
         if (item.id === state.estado.value) filters.estado = item.nome;
       });
+    } else {
+      filters.estado = 'Todos';
     }
 
-    if (!isEmptyValue(state.municipio.value)) {
-      state.municipio.data.forEach((item) => {
-        if (item.id === state.municipio.value) filters.municipio = item.nome;
-      });
+    if (state.municipio.onLoad) {
+      if (!isEmptyValue(state.municipio.value)) {
+        state.municipio.data.forEach((item) => {
+          if (item.id === state.municipio.value) filters.municipio = item.nome;
+        });
+      } else {
+        filters.municipio = 'Todos';
+      }
     }
 
     if (!isEmptyValue(state.eleicao.value)) {
       state.eleicao.data.forEach((item) => {
         if (item.id === state.eleicao.value) filters.eleicao = item.nome;
       });
+    } else {
+      filters.eleicao = 'Todas';
     }
 
-    if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
-      state.partido.data.forEach((item) => {
-        if (item.id === state.partido.value) filters.partido = item.nome;
-      });
+    if (selectPartido) {
+      if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
+        state.partido.data.forEach((item) => {
+          if (item.id === state.partido.value) filters.partido = item.nome;
+        });
+      } else {
+        filters.partido = 'Todos';
+      }
     }
 
-    if (
-      !isEmptyObject(state.espectroPolitico) &&
-      !isEmptyValue(state.espectroPolitico.value)
-    ) {
-      state.espectroPolitico.data.forEach((item) => {
-        if (item.id === state.espectroPolitico.value)
-          filters.espectroPolitico = item.nome;
-      });
+    if (selectEspectroPolitico) {
+      if (
+        !isEmptyObject(state.espectroPolitico) &&
+        !isEmptyValue(state.espectroPolitico.value)
+      ) {
+        state.espectroPolitico.data.forEach((item) => {
+          if (item.id === state.espectroPolitico.value)
+            filters.espectroPolitico = item.nome;
+        });
+      } else {
+        filters.espectroPolitico = 'Todos';
+      }
     }
 
-    if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
-      state.cargo.data.forEach((item) => {
-        if (item.id === state.cargo.value) filters.cargo = item.nome;
-      });
+    if (selectCargo) {
+      if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
+        state.cargo.data.forEach((item) => {
+          if (item.id === state.cargo.value) filters.cargo = item.nome;
+        });
+      } else {
+        filters.cargo = 'Todos';
+      }
     }
 
     return filters;

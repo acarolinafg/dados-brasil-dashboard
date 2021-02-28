@@ -35,7 +35,6 @@ export default class EspectroPolitico extends Component {
     const sidebar = (
       <SearchForm
         selectEspectroPolitico
-        selectCargo
         onResult={this.onResult}
         onLoading={this.onLoading}
         urlFilters="eleicoes/espectro-politico/filtros"

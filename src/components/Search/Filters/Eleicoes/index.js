@@ -7,7 +7,7 @@ export default function SearchFilter(props) {
   if (filters.ano) {
     content.push(
       <span key={1}>
-        Ano: <b>{filters.ano}</b>{' '}
+        Ano: <b>{filters.ano}</b>
       </span>
     );
   }
@@ -69,7 +69,7 @@ export default function SearchFilter(props) {
       filters.espectroPolitico !== '' ? filters.espectroPolitico : 'Todos';
     content.push(
       <span key={8}>
-        Espectro: <b>{filter}</b>
+        Espectro Político: <b>{filter}</b>
       </span>
     );
   }
