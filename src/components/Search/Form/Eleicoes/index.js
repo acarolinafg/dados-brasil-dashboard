@@ -11,6 +11,7 @@ import {
   isEmptyArray,
   isEmptyObject,
   isEmptyValue,
+  searchDataNome,
   selectDataCargo,
   selectDataEstadoRegiao,
 } from '../../../../includes/Helper';
@@ -582,7 +583,7 @@ export default class SearchForm extends Component {
   }
 
   /**
-   * Obter os filtros da busca
+   * Obter os valores do filtro de busca
    * @returns {{}}
    */
   setFilters() {
@@ -592,80 +593,59 @@ export default class SearchForm extends Component {
       ano: state.ano.value,
     };
 
-    state.turno.data.forEach((item) => {
-      if (item.id === state.turno.value) filters.turno = item.nome;
-    });
+    const { turno } = state;
+    filters.turno = searchDataNome(turno.data, turno.value);
 
-    state.tipoEleicao.data.forEach((item) => {
-      if (item.id === state.tipoEleicao.value) filters.tipoEleicao = item.nome;
-    });
+    const { tipoEleicao } = state;
+    filters.tipoEleicao = searchDataNome(tipoEleicao.data, tipoEleicao.value);
 
+    const { regiao } = state;
     if (!isEmptyValue(state.regiao.value)) {
-      state.regiao.data.forEach((item) => {
-        if (item.id === state.regiao.value) filters.regiao = item.nome;
-      });
+      filters.regiao = searchDataNome(regiao.data, regiao.value);
     } else {
       filters.regiao = 'Todas';
     }
 
+    const { estado } = state;
     if (!isEmptyValue(state.estado.value)) {
-      state.estado.data.forEach((item) => {
-        if (item.id === state.estado.value) filters.estado = item.nome;
-      });
+      filters.estado = searchDataNome(estado.data, estado.value);
     } else {
       filters.estado = 'Todos';
     }
 
-    if (state.municipio.onLoad) {
-      if (!isEmptyValue(state.municipio.value)) {
-        state.municipio.data.forEach((item) => {
-          if (item.id === state.municipio.value) filters.municipio = item.nome;
-        });
+    const { municipio } = state;
+    if (municipio.onLoad) {
+      if (!isEmptyValue(municipio.value)) {
+        filters.municipio = searchDataNome(municipio.data, municipio.value);
       } else {
         filters.municipio = 'Todos';
       }
     }
 
-    if (!isEmptyValue(state.eleicao.value)) {
-      state.eleicao.data.forEach((item) => {
-        if (item.id === state.eleicao.value) filters.eleicao = item.nome;
-      });
+    const { eleicao } = state;
+    if (!isEmptyValue(eleicao.value)) {
+      filters.eleicao = searchDataNome(eleicao.data, eleicao.value);
     } else {
       filters.eleicao = 'Todas';
     }
 
     if (selectPartido) {
-      if (!isEmptyObject(state.partido) && !isEmptyValue(state.partido.value)) {
-        state.partido.data.forEach((item) => {
-          if (item.id === state.partido.value) filters.partido = item.nome;
-        });
-      } else {
-        filters.partido = 'Todos';
-      }
+      const { data, value } = state.partido;
+      if (!isEmptyValue(value)) filters.partido = searchDataNome(data, value);
+      else filters.partido = 'Todos';
     }
 
     if (selectEspectroPolitico) {
-      if (
-        !isEmptyObject(state.espectroPolitico) &&
-        !isEmptyValue(state.espectroPolitico.value)
-      ) {
-        state.espectroPolitico.data.forEach((item) => {
-          if (item.id === state.espectroPolitico.value)
-            filters.espectroPolitico = item.nome;
-        });
-      } else {
-        filters.espectroPolitico = 'Todos';
-      }
+      const { data, value } = state.espectroPolitico;
+      if (!isEmptyValue(value))
+        filters.espectroPolitico = searchDataNome(data, value);
+      else filters.espectroPolitico = 'Todos';
     }
 
     if (selectCargo) {
-      if (!isEmptyObject(state.cargo) && !isEmptyValue(state.cargo.value)) {
-        state.cargo.data.forEach((item) => {
-          if (item.id === state.cargo.value) filters.cargo = item.nome;
-        });
-      } else {
-        filters.cargo = 'Todos';
-      }
+      const { data, value } = state.cargo;
+      if (!isEmptyValue(value)) filters.cargo = searchDataNome(data, value);
+      else filters.cargo = 'Todos';
     }
 
     return filters;
@@ -770,15 +750,20 @@ export default class SearchForm extends Component {
         />
         {estado.disabled ? <Loading /> : ''}
 
-        <Select
-          label="Município"
-          name="input-municipio"
-          value={municipio.value}
-          disabled={municipio.disabled}
-          data={municipio.data}
-          onChange={this.handleChangeMunicipio}
-        />
-        {municipio.loading ? <Loading /> : ''}
+        {municipio.onLoad ? (
+          <Select
+            label="Município"
+            name="input-municipio"
+            value={municipio.value}
+            disabled={municipio.disabled}
+            data={municipio.data}
+            onChange={this.handleChangeMunicipio}
+          />
+        ) : (
+          ''
+        )}
+
+        {municipio.onLoad && municipio.loading ? <Loading /> : ''}
 
         <Select
           label="Turno"

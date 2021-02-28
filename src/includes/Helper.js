@@ -85,3 +85,17 @@ export function selectDataEstadoRegiao(dataRegiao, idRegiao) {
 
   return dataEstados;
 }
+
+/**
+ * Função genérica para busca do atributo nome em um array
+ * @param {[{nome: string, id: Number|string }]} data
+ * @param {Number} id
+ * @returns {string}
+ */
+export function searchDataNome(data, id) {
+  let nome = '';
+  data.forEach((item) => {
+    if (item.id === id) nome = item.nome;
+  });
+  return nome;
+}
