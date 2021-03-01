@@ -149,7 +149,7 @@ body {
 }
 
 .search-chart {
-  margin:1rem 0;
+  margin: 1rem 0;
 }
 
 // Página Home
@@ -185,4 +185,45 @@ body {
   .wrapper-home div > p {
     font-size: 1rem;
   }
+}
+
+.bg-extrema-esquerda {
+  background-color: #660000 !important;
+}
+
+.bg-esquerda {
+  background-color: #ff0000 !important;
+}
+
+.bg-centro-esquerda {
+  background-color: #ff8080 !important;
+}
+
+.bg-centro {
+  background-color: #ffcc00 !important;
+}
+
+.bg-centro-direita {
+  background-color: #9999ff !important;
+}
+
+.bg-direita {
+  background-color: #0000ff !important;
+}
+
+.bg-extrema-direita {
+  background-color: #000066 !important;
+}
+
+.progress {
+  border-radius: 0;
+}
+
+.progress-bar-dark {
+  color: $body-color !important;
+}
+
+.progress-bar-chart span {
+  font-size: 11px;
+  color: #666;
 }
