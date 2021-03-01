@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import Env from '../../../../includes/Env';
-import Chart from '../../../../components/Search/Chart';
+import Chart from '../../../../components/Search/ChartContainer';
 
 export default class CandidatosEleitos extends Component {
   constructor(props) {

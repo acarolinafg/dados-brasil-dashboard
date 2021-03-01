@@ -21,6 +21,15 @@ const Env = {
       Prefeito: 11,
       Vereador: 13,
     },
+    espectro: {
+      ExtremaEsquerda: 1,
+      Esquerda: 2,
+      CentroEsquerda: 3,
+      Centro: 4,
+      CentroDireita: 5,
+      Direita: 6,
+      ExtremaDireita: 7,
+    },
   },
 };
 

@@ -13,7 +13,7 @@ export default function ProgressBar(props) {
   );
   const nowFormat = numberFormatBr(now);
   return (
-    <div className="progress-bar-chart">
+    <div className="progress-bar-chart mb-2">
       {renderLabel}
       {renderLabelExtra}
       <div className="progress">

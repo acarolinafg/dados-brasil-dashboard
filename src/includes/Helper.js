@@ -108,3 +108,40 @@ export function searchDataNome(data, id) {
 export function numberFormatBr(number) {
   return new Intl.NumberFormat('pt-BR').format(number);
 }
+
+/**
+ * Retorna o nome da classe de cor de fundo do espectro politico
+ * @param {Number} espectroId
+ * @returns {string}
+ */
+export function selectBgColorEspectro(espectroId) {
+  const espectros = Env.eleicoes.espectro;
+  let bgColor = '';
+  switch (espectroId) {
+    case espectros.ExtremaEsquerda:
+      bgColor = 'bg-extrema-esquerda';
+      break;
+    case espectros.Esquerda:
+      bgColor = 'bg-esquerda';
+      break;
+    case espectros.CentroEsquerda:
+      bgColor = 'bg-centro-esquerda';
+      break;
+    case espectros.Centro:
+      bgColor = 'bg-centro';
+      break;
+    case espectros.CentroDireita:
+      bgColor = 'bg-centro-direita';
+      break;
+    case espectros.Direita:
+      bgColor = 'bg-direita';
+      break;
+    case espectros.ExtremaDireita:
+      bgColor = 'bg-extrema-direita';
+      break;
+    default:
+      bgColor = '';
+      break;
+  }
+  return bgColor;
+}

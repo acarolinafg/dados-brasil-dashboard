@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { Container, Row } from 'react-bootstrap';
+
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
+import ChartCandidatos from './Charts/ChartCandidatos';
+import ChartEleitos from './Charts/ChartEleitos';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -49,7 +53,17 @@ export default class EspectroPolitico extends Component {
         ) : (
           ''
         )}
-        {data ? '' : ''}
+
+        {data && data.totalCandidatos ? (
+          <Container fluid>
+            <Row>
+              <ChartCandidatos data={data} />
+              <ChartEleitos data={data} />
+            </Row>
+          </Container>
+        ) : (
+          ''
+        )}
       </Dashboard>
     );
   }
