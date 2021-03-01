@@ -6,6 +6,7 @@ import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
 import ChartCandidatos from './Charts/ChartCandidatos';
 import ChartEleitos from './Charts/ChartEleitos';
+import ChartCandidatosEleitos from './Charts/ChartCandidatosEleitos';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -59,6 +60,9 @@ export default class EspectroPolitico extends Component {
             <Row>
               <ChartCandidatos data={data} />
               <ChartEleitos data={data} />
+            </Row>
+            <Row>
+              <ChartCandidatosEleitos data={data} />
             </Row>
           </Container>
         ) : (

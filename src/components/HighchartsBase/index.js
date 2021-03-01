@@ -1,7 +1,6 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import PropTypes from 'prop-types';
 
 /**
  * Base para renderização de gráficos da biblioteca Highcharts
@@ -18,9 +17,3 @@ export default function HighchartsBase(props) {
     </div>
   );
 }
-HighchartsBase.propTypes = {
-  id: PropTypes.string.isRequired,
-  options: PropTypes.object.isRequired,
-};
-
-HighchartsBase.defaultProps = {};
