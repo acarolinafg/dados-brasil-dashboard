@@ -99,3 +99,12 @@ export function searchDataNome(data, id) {
   });
   return nome;
 }
+
+/**
+ * Formatar o número para o padrão Brasil
+ * @param number
+ * @returns {string}
+ */
+export function numberFormatBr(number) {
+  return new Intl.NumberFormat('pt-BR').format(number);
+}
