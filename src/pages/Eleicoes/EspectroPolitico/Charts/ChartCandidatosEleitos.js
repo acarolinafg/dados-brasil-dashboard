@@ -16,7 +16,7 @@ export default function ChartCandidatosEleitos(props) {
     seriesCandidatos.push(item.candidatos.total);
     let target = '( ';
     target = target
-      .concat(numberFormatBr(item.taxaEleitosCandidatos))
+      .concat(numberFormatBr(item.percentualEleitos))
       .concat('% dos candidatos )');
     seriesEleitos.push({
       name: item.nome,

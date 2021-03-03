@@ -55,7 +55,7 @@ export default class EspectroPolitico extends Component {
           ''
         )}
 
-        {data && data.totalCandidatos ? (
+        {data && data.candidatosEleitos ? (
           <Container fluid>
             <Row>
               <ChartCandidatos data={data} />

@@ -10,15 +10,16 @@ import ProgressBar from '../../../../components/ProgressBar';
 export default function ChartEleitos(props) {
   const { data } = props;
 
-  const { candidatosEleitos } = data;
+  const { candidatosEleitos, meta } = data;
   const charts = [];
 
   candidatosEleitos.forEach((item) => {
     charts.push(
       <ProgressBar
-        now={item.eleitos.taxa}
+        key={item.id}
+        now={item.eleitos.percentual}
         variant={selectBgColorEspectro(item.id)}
-        label={item.nome}
+        label={`${item.nome} (${numberFormatBr(item.eleitos.percentual)}%)`}
         labelExtra={numberFormatBr(item.eleitos.total)}
       />
     );
@@ -27,7 +28,7 @@ export default function ChartEleitos(props) {
     <Col md={6} className="mb-3">
       <ChartContainer
         title="Número de Eleitos"
-        subtitle={`Total de eleitos: ${numberFormatBr(data.totalEleitos)}`}
+        subtitle={`Total de eleitos: ${numberFormatBr(meta.eleitos)}`}
       >
         {charts}
       </ChartContainer>

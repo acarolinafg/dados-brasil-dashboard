@@ -9,26 +9,26 @@ import ProgressBar from '../../../../components/ProgressBar';
 
 export default function ChartCandidatos(props) {
   const { data } = props;
-  const { candidatosEleitos } = data;
+  const { candidatosEleitos, meta } = data;
   const charts = [];
 
   candidatosEleitos.forEach((item) => {
     charts.push(
       <ProgressBar
-        now={item.candidatos.taxa}
+        key={item.id}
+        now={item.candidatos.percentual}
         variant={selectBgColorEspectro(item.id)}
-        label={item.nome}
+        label={`${item.nome} (${numberFormatBr(item.candidatos.percentual)}%)`}
         labelExtra={numberFormatBr(item.candidatos.total)}
       />
     );
   });
+
   return (
     <Col md={6} className="mb-3">
       <ChartContainer
         title="Número de candidatos"
-        subtitle={`Total de candidatos: ${numberFormatBr(
-          data.totalCandidatos
-        )}`}
+        subtitle={`Total de candidatos: ${numberFormatBr(meta.candidatos)}`}
       >
         {charts}
       </ChartContainer>
