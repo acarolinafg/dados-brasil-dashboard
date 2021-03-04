@@ -5,13 +5,15 @@ import CanidatosCard from './Candidatos/CandidatosCard';
 import EleitosCard from './Eleitos/EleitosCard';
 import ChartGeneroPie from '../../../../components/Search/Charts/ChartGeneroPie';
 import ChartRacaBar from '../../../../components/Search/Charts/ChartRacaBar';
+import CargosBar from './Comparativos/CargosBar';
+import PartidosColumn from './Comparativos/PartidosColumn';
 
 export default function ChartsComplementary(props) {
   const { data } = props;
 
   return (
     <Container fluid>
-      <Row>
+      <Row className="mb-3">
         <Col md={6}>
           <CanidatosCard
             nome={data.nome}
@@ -28,7 +30,7 @@ export default function ChartsComplementary(props) {
           />
         </Col>
       </Row>
-      <Row className="mt-3">
+      <Row className="mb-3">
         <Col md={6}>
           <ChartGeneroPie
             data={data.candidatos.generos}
@@ -37,7 +39,7 @@ export default function ChartsComplementary(props) {
             id={1}
           />
         </Col>
-        <Col md={6}>
+        <Col md={6} className="mt-3  mt-md-0">
           <ChartGeneroPie
             data={data.eleitos.generos}
             title="Eleitos por gênero"
@@ -46,7 +48,7 @@ export default function ChartsComplementary(props) {
           />
         </Col>
       </Row>
-      <Row className="mt-3 mb-3">
+      <Row className="mb-3">
         <Col md={6}>
           <ChartRacaBar
             title="Candidatos por cor/raça"
@@ -60,6 +62,16 @@ export default function ChartsComplementary(props) {
             bgColor="bg-success"
             data={data.eleitos.racas}
           />
+        </Col>
+      </Row>
+      <Row className="mb-3">
+        <Col xs={12}>
+          <CargosBar data={data.cargos} />
+        </Col>
+      </Row>
+      <Row className="mb-3">
+        <Col xs={12}>
+          <PartidosColumn data={data.partidos} />
         </Col>
       </Row>
     </Container>
