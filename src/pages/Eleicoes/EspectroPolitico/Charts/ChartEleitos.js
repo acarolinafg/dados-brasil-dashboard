@@ -8,12 +8,10 @@ import ChartContainer from '../../../../components/Search/ChartContainer';
 import ProgressBar from '../../../../components/ProgressBar';
 
 export default function ChartEleitos(props) {
-  const { data } = props;
-
-  const { candidatosEleitos, meta } = data;
+  const { data, totalEleitos } = props;
   const charts = [];
 
-  candidatosEleitos.forEach((item) => {
+  data.forEach((item) => {
     charts.push(
       <ProgressBar
         key={item.id}
@@ -28,7 +26,7 @@ export default function ChartEleitos(props) {
     <Col md={6} className="mb-3">
       <ChartContainer
         title="Número de Eleitos"
-        subtitle={`Total de eleitos: ${numberFormatBr(meta.eleitos)}`}
+        subtitle={`Total de eleitos: ${numberFormatBr(totalEleitos)}`}
       >
         {charts}
       </ChartContainer>

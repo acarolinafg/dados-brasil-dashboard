@@ -11,13 +11,21 @@ export default function ChartCandidatosEleitos(props) {
   const seriesCandidatos = [];
   const seriesEleitos = [];
 
-  data.candidatosEleitos.forEach((item) => {
+  data.forEach((item) => {
     categories.push(item.nome);
+
+    // percentual de eleitos
+    const percentual =
+      item.candidatos.total > 0
+        ? (item.eleitos.total / item.candidatos.total) * 100
+        : 0;
+
     seriesCandidatos.push(item.candidatos.total);
     let target = '( ';
     target = target
-      .concat(numberFormatBr(item.percentualEleitos))
+      .concat(numberFormatBr(percentual))
       .concat('% dos candidatos )');
+
     seriesEleitos.push({
       name: item.nome,
       y: item.eleitos.total,

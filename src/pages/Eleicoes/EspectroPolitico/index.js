@@ -7,6 +7,7 @@ import Loading from '../../../components/Search/Loading';
 import ChartCandidatos from './Charts/ChartCandidatos';
 import ChartEleitos from './Charts/ChartEleitos';
 import ChartCandidatosEleitos from './Charts/ChartCandidatosEleitos';
+import { isEmptyObject } from '../../../includes/Helper';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -17,12 +18,13 @@ export default class EspectroPolitico extends Component {
 
   /**
    * Método responsável por atualizar a página conforme as requisições do formulário
-   * @param data
-   * @param filters
-   * @param loading
    */
-  refreshPage(data, filters, loading) {
-    this.setState({ data, filters, loading });
+  refreshPage(response) {
+    this.setState({
+      data: response.data,
+      filters: response.filters,
+      loading: response.loading,
+    });
   }
 
   render() {
@@ -55,14 +57,20 @@ export default class EspectroPolitico extends Component {
           ''
         )}
 
-        {data && data.candidatosEleitos ? (
+        {data && !isEmptyObject(data) ? (
           <Container fluid>
             <Row>
-              <ChartCandidatos data={data} />
-              <ChartEleitos data={data} />
+              <ChartCandidatos
+                data={data.espectroPolitico}
+                totalCandidatos={data.candidatos}
+              />
+              <ChartEleitos
+                data={data.espectroPolitico}
+                totalEleitos={data.eleitos}
+              />
             </Row>
             <Row>
-              <ChartCandidatosEleitos data={data} />
+              <ChartCandidatosEleitos data={data.espectroPolitico} />
             </Row>
           </Container>
         ) : (

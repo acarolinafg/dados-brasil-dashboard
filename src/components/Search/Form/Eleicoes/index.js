@@ -408,7 +408,7 @@ export default class SearchForm extends Component {
         console.error(e);
       }
 
-      this.onLoadSearch();
+      await this.onLoadSearch();
     } else {
       console.error('Definir urlFilter');
     }
@@ -505,7 +505,7 @@ export default class SearchForm extends Component {
   async onLoadSearch() {
     const { onRefresh, urlSearch } = this.props;
     // Atualizar página antes da requisição
-    onRefresh({}, {}, true);
+    onRefresh({ loading: true });
     try {
       // Parâmetros da requisição
       const params = this.setParams();
@@ -513,7 +513,11 @@ export default class SearchForm extends Component {
       // Requisição de busca
       const response = await API.get(urlSearch, { params });
 
-      onRefresh(response.data, this.setFilters(), false);
+      onRefresh({
+        data: response.data,
+        filters: this.setFilters(),
+        loading: false,
+      });
 
       // Habilitar os botões
       this.setState({
