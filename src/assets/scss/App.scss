@@ -235,3 +235,33 @@ body {
   font-size: 11px;
   color: #666;
 }
+.card-candidatos,
+.card-eleitos {
+  text-align: center;
+  border:none!important;
+  border-radius: 0!important;
+}
+
+.card-candidatos p,
+.card-eleitos p {
+  margin-bottom: 0;
+}
+
+.card-candidatos .card-title,
+.card-eleitos .card-title {
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.card-candidatos {
+  background-color: $warning;
+}
+
+.card-eleitos {
+  background-color: $success;
+  color: $white;
+}
+
+.card-text-number {
+  font-size: 2rem;
+}

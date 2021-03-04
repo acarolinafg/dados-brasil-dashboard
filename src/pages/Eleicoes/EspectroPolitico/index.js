@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Container, Row } from 'react-bootstrap';
 
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
 import { isEmptyObject } from '../../../includes/Helper';
 import Charts from './Charts';
+import ChartsComplementary from './Charts/ChartsComplementary';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -57,20 +57,12 @@ export default class EspectroPolitico extends Component {
 
         {filters && filters.espectroPolitico === 'Todos' ? (
           <div>
-            {data && !isEmptyObject(data) ? (
-              <Container fluid>
-                <Charts data={data} />
-              </Container>
-            ) : (
-              ''
-            )}
+            {data && !isEmptyObject(data) ? <Charts data={data} /> : ''}
           </div>
         ) : (
           <div>
             {data && !isEmptyObject(data) ? (
-              <Container fluid>
-                <Row>Com espectro políico</Row>
-              </Container>
+              <ChartsComplementary data={data} />
             ) : (
               ''
             )}
