@@ -5,7 +5,7 @@ import HighchartsBase from '../../HighchartsBase';
 import Env from '../../../includes/Env';
 
 export default function ChartGeneroPie(props) {
-  const { data, title, serieName, key } = props;
+  const { data, title, serieName, id } = props;
   const seriesData = [];
 
   data.forEach((item) => {
@@ -54,7 +54,7 @@ export default function ChartGeneroPie(props) {
   };
   return (
     <ChartContainer title={title}>
-      <HighchartsBase id={`chart-genero-pie-${key}`} options={options} />
+      <HighchartsBase id={`chart-genero-pie-${id}`} options={options} />
     </ChartContainer>
   );
 }

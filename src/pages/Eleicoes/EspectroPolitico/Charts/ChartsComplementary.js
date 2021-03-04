@@ -34,7 +34,7 @@ export default function ChartsComplementary(props) {
             data={data.candidatos.generos}
             title="Candidatos por gênero"
             serieName="Candidatos"
-            key={1}
+            id={1}
           />
         </Col>
         <Col md={6}>
@@ -42,7 +42,7 @@ export default function ChartsComplementary(props) {
             data={data.eleitos.generos}
             title="Eleitos por gênero"
             serieName="Eleitos"
-            key={2}
+            id={2}
           />
         </Col>
       </Row>

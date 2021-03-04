@@ -57,7 +57,11 @@ export default class EspectroPolitico extends Component {
 
         {filters && filters.espectroPolitico === 'Todos' ? (
           <div>
-            {data && !isEmptyObject(data) ? <Charts data={data} /> : ''}
+            {data && !isEmptyObject(data) ? (
+              <Charts data={data} ano={filters.ano} />
+            ) : (
+              ''
+            )}
           </div>
         ) : (
           <div>
