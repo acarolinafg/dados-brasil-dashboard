@@ -4,10 +4,8 @@ import { Container, Row } from 'react-bootstrap';
 import Dashboard from '../../../components/Dashboard';
 import SearchForm from '../../../components/Search/Form/Eleicoes';
 import Loading from '../../../components/Search/Loading';
-import ChartCandidatos from './Charts/ChartCandidatos';
-import ChartEleitos from './Charts/ChartEleitos';
-import ChartCandidatosEleitos from './Charts/ChartCandidatosEleitos';
 import { isEmptyObject } from '../../../includes/Helper';
+import Charts from './Charts';
 
 export default class EspectroPolitico extends Component {
   constructor(props) {
@@ -57,24 +55,26 @@ export default class EspectroPolitico extends Component {
           ''
         )}
 
-        {data && !isEmptyObject(data) ? (
-          <Container fluid>
-            <Row>
-              <ChartCandidatos
-                data={data.espectroPolitico}
-                totalCandidatos={data.candidatos}
-              />
-              <ChartEleitos
-                data={data.espectroPolitico}
-                totalEleitos={data.eleitos}
-              />
-            </Row>
-            <Row>
-              <ChartCandidatosEleitos data={data.espectroPolitico} />
-            </Row>
-          </Container>
+        {filters && filters.espectroPolitico === 'Todos' ? (
+          <div>
+            {data && !isEmptyObject(data) ? (
+              <Container fluid>
+                <Charts data={data} />
+              </Container>
+            ) : (
+              ''
+            )}
+          </div>
         ) : (
-          ''
+          <div>
+            {data && !isEmptyObject(data) ? (
+              <Container fluid>
+                <Row>Com espectro políico</Row>
+              </Container>
+            ) : (
+              ''
+            )}
+          </div>
         )}
       </Dashboard>
     );

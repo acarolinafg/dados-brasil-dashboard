@@ -1,11 +1,10 @@
 import React from 'react';
-import { Col } from 'react-bootstrap';
 
-import ChartContainer from '../../../../components/Search/ChartContainer';
-import HighchartsBase from '../../../../components/HighchartsBase';
-import { numberFormatBr } from '../../../../includes/Helper';
+import ChartContainer from '../../../../../components/Search/ChartContainer';
+import HighchartsBase from '../../../../../components/HighchartsBase';
+import { numberFormatBr } from '../../../../../includes/Helper';
 
-export default function ChartCandidatosEleitos(props) {
+export default function CandidatosEleitosColumn(props) {
   const { data } = props;
   const categories = [];
   const seriesCandidatos = [];
@@ -14,16 +13,10 @@ export default function ChartCandidatosEleitos(props) {
   data.forEach((item) => {
     categories.push(item.nome);
 
-    // percentual de eleitos
-    const percentual =
-      item.candidatos.total > 0
-        ? (item.eleitos.total / item.candidatos.total) * 100
-        : 0;
-
     seriesCandidatos.push(item.candidatos.total);
     let target = '( ';
     target = target
-      .concat(numberFormatBr(percentual))
+      .concat(numberFormatBr(item.percentualEleitosEspectro))
       .concat('% dos candidatos )');
 
     seriesEleitos.push({
@@ -91,13 +84,11 @@ export default function ChartCandidatosEleitos(props) {
     },
   };
   return (
-    <Col md={12}>
-      <ChartContainer
-        title="Candidatos e Eleitos"
-        subtitle="Análise comparativa entre o número de candidatos e o número de eleitos"
-      >
-        <HighchartsBase id="columChar1" options={options} />
-      </ChartContainer>
-    </Col>
+    <ChartContainer
+      title="Candidatos e Eleitos"
+      subtitle="Análise comparativa entre o número de candidatos e o número de eleitos"
+    >
+      <HighchartsBase id="chart-espectro-1" options={options} />
+    </ChartContainer>
   );
 }
