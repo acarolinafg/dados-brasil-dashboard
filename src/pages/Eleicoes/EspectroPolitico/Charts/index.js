@@ -4,6 +4,7 @@ import CandidatosBar from './Candidatos/CandidatosBar';
 import EleitosBar from './Eleitos/EleitosBar';
 import CandidatosEleitosColumn from './Comparativos/CandidatosEleitosColumn';
 import EleitosCenario from './Eleitos/EleitosCenario';
+import CandidatosGenerosPie from './Candidatos/CandidatosGenerosPie';
 
 export default function Charts(props) {
   const { data, ano } = props;
@@ -29,6 +30,11 @@ export default function Charts(props) {
             total={data.eleitos}
             data={data.espectroPolitico}
           />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={12}>
+          <CandidatosGenerosPie data={data.espectroPolitico} />
         </Col>
       </Row>
     </Container>
