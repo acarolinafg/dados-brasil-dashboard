@@ -8,7 +8,7 @@ const Env = {
     yellow: '#f8c300',
     green: '#00923f',
   },
-  version: '0.1.0',
+  version: '1.0.0',
   eleicoes: {
     AbrangenciaMunicipal: 3,
     Suplementar: 1,
