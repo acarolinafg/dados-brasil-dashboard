@@ -30,7 +30,6 @@ export default function Header() {
             <Nav.Link href="/eleicoes/espectro-politico">
               Espectro Político
             </Nav.Link>
-            <Nav.Link href="/eleicoes/partidos">Partidos</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
