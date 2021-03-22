@@ -1,5 +1,5 @@
 import React from 'react';
-import { isEmptyValue, numberFormatBr } from '../../includes/Helper';
+import { isEmptyValue } from '../../includes/Helper';
 
 export default function ProgressBar(props) {
   const { now, variant, dark, label, labelExtra } = props;
@@ -11,7 +11,6 @@ export default function ProgressBar(props) {
   ) : (
     ''
   );
-  const nowFormat = numberFormatBr(now);
   return (
     <div className="progress-bar-chart mb-2">
       {renderLabel}
@@ -25,7 +24,7 @@ export default function ProgressBar(props) {
           aria-valuemin="0"
           aria-valuemax="100"
         >
-          {`${nowFormat}%`}
+          {'  '}
         </div>
       </div>
     </div>

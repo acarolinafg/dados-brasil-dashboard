@@ -15,12 +15,10 @@ export default function EleitosBar(props) {
     charts.push(
       <ProgressBar
         key={item.id}
-        now={item.eleitos.percentualTotal}
+        now={item.percentual}
         variant={selectBgColorEspectro(item.id)}
-        label={`${item.nome} (${numberFormatBr(
-          item.eleitos.percentualTotal
-        )}%)`}
-        labelExtra={numberFormatBr(item.eleitos.total)}
+        label={`${item.nome}: ${numberFormatBr(item.total)}`}
+        labelExtra={`${numberFormatBr(item.percentual)}%`}
       />
     );
   });
