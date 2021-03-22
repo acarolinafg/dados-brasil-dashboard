@@ -4,20 +4,18 @@ import HighchartsBase from '../../../../../components/HighchartsBase';
 import { numberFormatBr } from '../../../../../includes/Helper';
 
 export default function EleitosCenario(props) {
-  const { data, total, ano } = props;
+  const { data, total } = props;
   const seriesData = [];
 
   data.forEach((item) => {
     seriesData.push({
       name: item.nome,
-      y: item.eleitos.percentualTotal,
+      y: item.percentual,
       color: item.cor,
     });
   });
 
-  const title = numberFormatBr(total);
-  title.concat('<br> Eleitos em ');
-  title.concat(ano);
+  const title = `Total de eleitos: <br> ${numberFormatBr(total)}`;
 
   const options = {
     chart: {
