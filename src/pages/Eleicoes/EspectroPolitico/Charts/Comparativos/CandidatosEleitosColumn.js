@@ -2,7 +2,6 @@ import React from 'react';
 
 import ChartContainer from '../../../../../components/Search/ChartContainer';
 import HighchartsBase from '../../../../../components/HighchartsBase';
-import { numberFormatBr } from '../../../../../includes/Helper';
 
 export default function CandidatosEleitosColumn(props) {
   const { data } = props;
@@ -10,22 +9,15 @@ export default function CandidatosEleitosColumn(props) {
   const seriesCandidatos = [];
   const seriesEleitos = [];
 
-  data.candidaturas.forEach((item) => {
+  data.espectroPolitico.forEach((item) => {
     categories.push(item.nome);
-    seriesCandidatos.push(item.total);
-  });
 
-  data.eleitos.forEach((item) => {
-    let target = '( ';
-    target = target
-      .concat(numberFormatBr(item.percentualCandidatura))
-      .concat('% dos candidatos foram eleitos )');
+    seriesCandidatos.push(item.candidaturas.total);
 
     seriesEleitos.push({
       name: item.nome,
-      y: item.total,
       color: item.cor,
-      target,
+      y: item.eleitos.total,
     });
   });
 

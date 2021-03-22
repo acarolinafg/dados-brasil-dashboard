@@ -5,6 +5,8 @@ import CandidatosBar from './Candidatos/CandidatosBar';
 import EleitosBar from './Eleitos/EleitosBar';
 import CandidatosEleitosColumn from './Comparativos/CandidatosEleitosColumn';
 import EleitosCenario from './Eleitos/EleitosCenario';
+import CandidatosGenerosPie from './Candidatos/CandidatosGenerosPie';
+import CandidatosRacaBar from './Candidatos/CandidatosRacaBar';
 
 export default function Charts(props) {
   const { data } = props;
@@ -13,12 +15,15 @@ export default function Charts(props) {
       <Row>
         <Col md={6}>
           <CandidatosBar
-            data={data.candidaturas}
-            total={data.totalCandidatos}
+            data={data.espectroPolitico}
+            total={data.totalCandidaturas.total}
           />
         </Col>
         <Col md={6} className="mt-3 mt-md-0">
-          <EleitosBar data={data.eleitos} total={data.totalEleitos} />
+          <EleitosBar
+            data={data.espectroPolitico}
+            total={data.totalEleitos.total}
+          />
         </Col>
       </Row>
       <Row className="mt-3">
@@ -28,7 +33,26 @@ export default function Charts(props) {
       </Row>
       <Row className="mt-3">
         <Col xs={12}>
-          <EleitosCenario total={data.totalEleitos} data={data.eleitos} />
+          <EleitosCenario
+            data={data.espectroPolitico}
+            total={data.totalEleitos.total}
+          />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={12}>
+          <CandidatosGenerosPie
+            data={data.espectroPolitico}
+            totalGenero={data.totalCandidaturas.totalGenero}
+          />
+        </Col>
+      </Row>
+      <Row className="mt-3">
+        <Col xs={12}>
+          <CandidatosRacaBar
+            data={data.espectroPolitico}
+            totalCorRaca={data.totalCandidaturas.totalCorRaca}
+          />
         </Col>
       </Row>
     </Container>

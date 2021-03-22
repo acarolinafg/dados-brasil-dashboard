@@ -10,8 +10,8 @@ export default function EleitosCenario(props) {
   data.forEach((item) => {
     seriesData.push({
       name: item.nome,
-      y: item.percentual,
       color: item.cor,
+      y: item.eleitos.total,
     });
   });
 

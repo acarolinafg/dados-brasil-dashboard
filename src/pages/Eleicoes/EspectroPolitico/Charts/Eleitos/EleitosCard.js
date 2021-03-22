@@ -12,10 +12,10 @@ export default function EleitosCard(props) {
           {numberFormatBr(total)}
         </Card.Text>
         <Card.Text>
-          {numberFormatBr(percentualEspectro)} % dos candidatos foram eleitos
+          {numberFormatBr(percentualEspectro)} % do total de candidatos
         </Card.Text>
         <Card.Text>
-          {numberFormatBr(percentual)} % dos candidatos eleitos
+          {numberFormatBr(percentual)} % dos candidatos são eleitos
         </Card.Text>
       </Card.Body>
     </Card>

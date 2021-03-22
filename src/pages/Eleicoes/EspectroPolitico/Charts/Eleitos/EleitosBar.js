@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import {
   numberFormatBr,
@@ -7,27 +7,34 @@ import {
 import ChartContainer from '../../../../../components/Search/ChartContainer';
 import ProgressBar from '../../../../../components/ProgressBar';
 
-export default function EleitosBar(props) {
-  const { data, total } = props;
-  const charts = [];
+export default class EleitosBar extends Component {
+  renderCharts() {
+    const { data } = this.props;
+    const charts = [];
 
-  data.forEach((item) => {
-    charts.push(
-      <ProgressBar
-        key={item.id}
-        now={item.percentual}
-        variant={selectBgColorEspectro(item.id)}
-        label={`${item.nome}: ${numberFormatBr(item.total)}`}
-        labelExtra={`${numberFormatBr(item.percentual)}%`}
-      />
+    data.forEach((item) => {
+      charts.push(
+        <ProgressBar
+          key={item.id}
+          now={item.eleitos.percentual}
+          variant={selectBgColorEspectro(item.id)}
+          label={`${item.nome}: ${numberFormatBr(item.eleitos.total)}`}
+          labelExtra={`${numberFormatBr(item.eleitos.percentual)}%`}
+        />
+      );
+    });
+    return charts;
+  }
+
+  render() {
+    const { total } = this.props;
+    return (
+      <ChartContainer
+        title="Número de Eleitos"
+        subtitle={`Total de eleitos: ${numberFormatBr(total)}`}
+      >
+        {this.renderCharts()}
+      </ChartContainer>
     );
-  });
-  return (
-    <ChartContainer
-      title="Número de Eleitos"
-      subtitle={`Total de eleitos: ${numberFormatBr(total)}`}
-    >
-      {charts}
-    </ChartContainer>
-  );
+  }
 }

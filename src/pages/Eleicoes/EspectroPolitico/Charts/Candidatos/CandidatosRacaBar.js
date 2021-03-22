@@ -15,7 +15,7 @@ export default function CandidatosRacaBar(props) {
     charts.push(
       <Col md={4} className="mt-3" key={item.id}>
         <h3 className="title">{item.nome}</h3>
-        <ChartRacas data={item.candidatos.racas} espectroId={item.id} />
+        <ChartRacas data={item.candidaturas.corRacas} espectroId={item.id} />
       </Col>
     );
   });
@@ -37,7 +37,7 @@ function ChartRacas(props) {
           key={`espectro-${espectroId}-${item.id}`}
           now={item.percentual}
           variant={selectBgColorEspectro(espectroId)}
-          label={item.nome}
+          label={`${item.nome}: ${numberFormatBr(item.total)}`}
           labelExtra={`${numberFormatBr(item.percentual)}%`}
         />
       );
