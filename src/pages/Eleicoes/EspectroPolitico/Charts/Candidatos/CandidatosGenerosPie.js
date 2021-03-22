@@ -1,44 +1,63 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Col, Row } from 'react-bootstrap';
+
 import ChartContainer from '../../../../../components/Search/ChartContainer';
 import HighchartsBase from '../../../../../components/HighchartsBase';
+import { isEmptyArray } from '../../../../../includes/Helper';
 
-export default function CandidatosGenerosPie(props) {
-  const { data } = props;
-  const seriesFeminino = [];
-  const seriesMasculino = [];
+export default class CandidatosGenerosPie extends Component {
+  constructor(props) {
+    super(props);
 
-  function renderGenero(id, nome, cor, candidatos) {
-    const { generos } = candidatos;
-    generos.forEach((item) => {
-      if (item.id === 2) {
-        seriesMasculino.push({
-          name: nome,
-          y: item.percentual,
-          color: cor,
-        });
-      } else if (item.id === 3) {
-        seriesFeminino.push({
-          name: nome,
-          y: item.percentual,
-          color: cor,
-        });
-      }
+    this.state = { seriesFem: [], seriesMasc: [] };
+  }
+
+  componentDidMount() {
+    const { seriesFem, seriesMasc } = this.state;
+
+    if (isEmptyArray(seriesFem) && isEmptyArray(seriesMasc)) {
+      this.renderSeries();
+    }
+  }
+
+  setSerieGenero(name, color, data) {
+    const { seriesFem, seriesMasc } = this.state;
+
+    data.forEach((item) => {
+      const serie = {
+        name,
+        color,
+        y: item.percentual,
+        target: `Candidatos: ${item.total}`,
+      };
+
+      if (item.id === 2) seriesMasc.push(serie);
+      else if (item.id === 3) seriesFem.push(serie);
+
+      this.setState({ seriesFem, seriesMasc });
     });
   }
 
-  data.forEach((item) => {
-    renderGenero(item.id, item.nome, item.cor, item.candidatos);
-  });
+  renderSeries() {
+    const { data } = this.props;
 
-  return (
-    <ChartContainer title="Candidatos por gênero">
-      <Row>
-        <ChartPie id="fem-3" title="Feminino" series={seriesFeminino} />
-        <ChartPie id="mas-2" title="Masculino" series={seriesMasculino} />
-      </Row>
-    </ChartContainer>
-  );
+    data.forEach((item) => {
+      const { generos } = item.candidatos;
+      this.setSerieGenero(item.nome, item.cor, generos);
+    });
+  }
+
+  render() {
+    const { seriesFem, seriesMasc } = this.state;
+    return (
+      <ChartContainer title="Candidatos por gênero">
+        <Row>
+          <ChartPie id="fem-3" title="Feminino" series={seriesFem} />
+          <ChartPie id="masc-2" title="Masculino" series={seriesMasc} />
+        </Row>
+      </ChartContainer>
+    );
+  }
 }
 
 function ChartPie(props) {
