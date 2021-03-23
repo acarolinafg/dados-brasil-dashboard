@@ -11,11 +11,10 @@ export default function PartidosColumn(props) {
   const seriesEleitos = [];
 
   data.forEach((item) => {
-    categories.push(item.nome);
-    seriesCandidatos.push(item.candidatos);
-    seriesEleitos.push(item.eleitos);
+    categories.push(item.sigla);
+    seriesCandidatos.push(item.totalCandidaturas);
+    seriesEleitos.push(item.totalEleitos);
   });
-
   const options = {
     chart: { type: 'column' },
     title: { text: null },

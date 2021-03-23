@@ -8,9 +8,10 @@ export default function CanidatosCard(props) {
     <Card className="card-candidatos shadow">
       <Card.Body>
         <Card.Title>Candidatos - {nome}</Card.Title>
-        <Card.Text className="card-text-number">{numberFormatBr(total)}</Card.Text>
+        <Card.Text className="card-text-number">
+          {numberFormatBr(total)}
+        </Card.Text>
         <Card.Text>{numberFormatBr(percentual)} % dos candidatos</Card.Text>
-        <Card.Text>&nbsp;</Card.Text>
       </Card.Body>
     </Card>
   );

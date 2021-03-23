@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { numberFormatBr } from '../../../../../includes/Helper';
 
 export default function EleitosCard(props) {
-  const { nome, total, percentual, percentualEspectro } = props;
+  const { nome, total, percentual } = props;
   return (
     <Card className="card-eleitos shadow">
       <Card.Body className="text-center">
@@ -11,12 +11,7 @@ export default function EleitosCard(props) {
         <Card.Text className="card-text-number">
           {numberFormatBr(total)}
         </Card.Text>
-        <Card.Text>
-          {numberFormatBr(percentualEspectro)} % do total de candidatos
-        </Card.Text>
-        <Card.Text>
-          {numberFormatBr(percentual)} % dos candidatos são eleitos
-        </Card.Text>
+        <Card.Text>{numberFormatBr(percentual)} % eleitos</Card.Text>
       </Card.Body>
     </Card>
   );

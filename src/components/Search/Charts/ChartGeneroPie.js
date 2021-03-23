@@ -23,7 +23,7 @@ export default function ChartGeneroPie(props) {
       text: null,
     },
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+      pointFormat: '{series.name}: <br>{point.percentage:.1f} %',
     },
     accessibility: {
       point: {

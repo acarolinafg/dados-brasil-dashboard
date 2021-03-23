@@ -12,8 +12,8 @@ export default function CargosBar(props) {
 
   data.forEach((item) => {
     categories.push(item.nome);
-    seriesCandidatos.push(item.candidatos);
-    seriesEleitos.push(item.eleitos);
+    seriesCandidatos.push(item.totalCandidaturas);
+    seriesEleitos.push(item.totalEleitos);
   });
 
   const options = {
